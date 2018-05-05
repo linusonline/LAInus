@@ -112,6 +112,7 @@ public class TestSolver {
          .setRow(8, STRIKE, STRIKE, FILLED, FILLED, FILLED, FILLED, STRIKE, FILLED, STRIKE, STRIKE)
          .setRow(9, FILLED, STRIKE, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, STRIKE, STRIKE);
 
+   // 15x15 Nonograms Puzzle ID: 7,978,914
    private final Problem problem5 = new ProblemFactory().create(15, 15)
          .addColumnFromLeft(1, 4, 1, 1)
          .addColumnFromLeft(4, 1)
@@ -164,7 +165,85 @@ public class TestSolver {
          .setRow(13, STRIKE, STRIKE, STRIKE, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, STRIKE, STRIKE, STRIKE, STRIKE)
          .setRow(14, STRIKE, STRIKE, FILLED, FILLED, FILLED, STRIKE, FILLED, FILLED, FILLED, FILLED, FILLED, STRIKE, FILLED, STRIKE, STRIKE);
 
-   @Test
+   private final Problem problem6 = new ProblemFactory().create(20, 30)
+         .addColumnFromLeft(10)
+         .addColumnFromLeft(10)
+         .addColumnFromLeft(19)
+         .addColumnFromLeft(19)
+         .addColumnFromLeft(20)
+         .addColumnFromLeft(16)
+         .addColumnFromLeft(19)
+         .addColumnFromLeft(20)
+         .addColumnFromLeft(13,4)
+         .addColumnFromLeft(13,2)
+         .addColumnFromLeft(13)
+         .addColumnFromLeft(13,1)
+         .addColumnFromLeft(14,3)
+         .addColumnFromLeft(19)
+         .addColumnFromLeft(18)
+         .addColumnFromLeft(17)
+         .addColumnFromLeft(13)
+         .addColumnFromLeft(17)
+         .addColumnFromLeft(17)
+         .addColumnFromLeft(16)
+         .addColumnFromLeft(2,10,2)
+         .addColumnFromLeft(13)
+         .addColumnFromLeft(1,10)
+         .addColumnFromLeft(2,7)
+         .addColumnFromLeft(1,1,4)
+         .addColumnFromLeft(2,5)
+         .addColumnFromLeft(12)
+         .addColumnFromLeft(10)
+         .addColumnFromLeft(3,1)
+         .addColumnFromLeft(2)
+
+         .addRowFromTop(4,4,1)
+         .addRowFromTop(15,1,1)
+         .addRowFromTop(17,2,1)
+         .addRowFromTop(18,1,2,1)
+         .addRowFromTop(24,1)
+         .addRowFromTop(22,2)
+         .addRowFromTop(23,2)
+         .addRowFromTop(23,2)
+         .addRowFromTop(24,2)
+         .addRowFromTop(28)
+         .addRowFromTop(24,4)
+         .addRowFromTop(30)
+         .addRowFromTop(1,28)
+         .addRowFromTop(1,26)
+         .addRowFromTop(6,3,3,4,2)
+         .addRowFromTop(6,4,3,1)
+         .addRowFromTop(3,3,5,3)
+         .addRowFromTop(3,3,3,3)
+         .addRowFromTop(3,4,1,4)
+         .addRowFromTop(3,3,3)
+
+         .finish();
+
+   private final Solution solution6 = new Solution(20, 30)
+         .setRow(0, STRIKE, STRIKE, STRIKE, STRIKE, FILLED, FILLED, FILLED, FILLED, STRIKE, STRIKE, STRIKE, STRIKE, FILLED, FILLED, FILLED, FILLED, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE, FILLED, STRIKE, STRIKE, STRIKE, STRIKE)
+         .setRow(0, STRIKE, STRIKE, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, STRIKE, STRIKE, STRIKE, FILLED, STRIKE, STRIKE, STRIKE, STRIKE, FILLED, STRIKE, STRIKE, STRIKE, STRIKE)
+         .setRow(0, STRIKE, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, STRIKE, STRIKE, FILLED, FILLED, STRIKE, STRIKE, STRIKE, STRIKE, FILLED, STRIKE, STRIKE, STRIKE)
+         .setRow(0, STRIKE, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, STRIKE, STRIKE, FILLED, STRIKE, FILLED, FILLED, STRIKE, FILLED, STRIKE, STRIKE, STRIKE)
+         .setRow(0, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, STRIKE, STRIKE, FILLED, STRIKE, STRIKE, STRIKE)
+         .setRow(0, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, STRIKE, STRIKE, STRIKE, STRIKE, FILLED, FILLED, STRIKE, STRIKE)
+         .setRow(0, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, STRIKE, STRIKE, STRIKE, FILLED, FILLED, STRIKE, STRIKE)
+         .setRow(0, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, STRIKE, STRIKE, STRIKE, FILLED, FILLED, STRIKE, STRIKE)
+         .setRow(0, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, STRIKE, STRIKE, FILLED, FILLED, STRIKE, STRIKE)
+         .setRow(0, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, STRIKE, STRIKE)
+         .setRow(0, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, STRIKE, FILLED, FILLED, FILLED, FILLED, STRIKE)
+         .setRow(0, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED)
+         .setRow(0, FILLED, STRIKE, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED)
+         .setRow(0, FILLED, STRIKE, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, STRIKE, STRIKE)
+         .setRow(0, STRIKE, STRIKE, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE, FILLED, FILLED, FILLED, STRIKE, FILLED, FILLED, FILLED, STRIKE, FILLED, FILLED, FILLED, FILLED, STRIKE, STRIKE, FILLED, FILLED, STRIKE)
+         .setRow(0, STRIKE, STRIKE, FILLED, FILLED, FILLED, FILLED, FILLED, FILLED, STRIKE, STRIKE, STRIKE, STRIKE, FILLED, FILLED, FILLED, FILLED, STRIKE, FILLED, FILLED, FILLED, STRIKE, STRIKE, FILLED, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE)
+         .setRow(0, STRIKE, STRIKE, FILLED, FILLED, FILLED, STRIKE, FILLED, FILLED, FILLED, STRIKE, STRIKE, FILLED, FILLED, FILLED, FILLED, FILLED, STRIKE, FILLED, FILLED, FILLED, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE)
+         .setRow(0, STRIKE, STRIKE, FILLED, FILLED, FILLED, STRIKE, FILLED, FILLED, FILLED, STRIKE, STRIKE, STRIKE, FILLED, FILLED, FILLED, STRIKE, STRIKE, FILLED, FILLED, FILLED, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE)
+         .setRow(0, STRIKE, STRIKE, FILLED, FILLED, FILLED, STRIKE, FILLED, FILLED, FILLED, FILLED, STRIKE, STRIKE, STRIKE, FILLED, STRIKE, STRIKE, STRIKE, FILLED, FILLED, FILLED, FILLED, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE)
+         .setRow(0, STRIKE, STRIKE, FILLED, FILLED, FILLED, STRIKE, STRIKE, FILLED, FILLED, FILLED, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE, FILLED, FILLED, FILLED, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE, STRIKE);
+
+
+           @Test
    public void testProblem1() {
       Solution actual = new Solver(problem1).solve();
       assertEquals(solution1, actual);
@@ -186,7 +265,6 @@ public class TestSolver {
    public void testProblem4() {
       Solver solver = new Solver(problem4);
       Solution actual = solver.solve();
-      System.out.println(actual.toString());
       assertEquals(solution4, actual);
    }
 
@@ -194,7 +272,14 @@ public class TestSolver {
    public void testProblem5() {
       Solver solver = new Solver(problem5);
       Solution actual = solver.solve();
-      System.out.println(actual.toString());
-      assertEquals(solution4, actual);
+      assertEquals(solution5, actual);
+   }
+
+   @Test
+   public void testProblem6() {
+      Solver solver = new Solver(problem6);
+      Solution actual = solver.solve();
+      System.out.println(actual);
+      assertEquals(solution6, actual);
    }
 }

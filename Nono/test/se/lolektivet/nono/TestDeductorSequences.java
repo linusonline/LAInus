@@ -52,7 +52,7 @@ public class TestDeductorSequences {
    @Test
    public void testFillInShortest() {
       List<SquareState> answer = Deductor.fillInShortestClueFromEdges(
-            Arrays.asList(UNKNOW, FILLED, FILLED, FILLED, UNKNOW),
+            Arrays.asList(UNKNOW, UNKNOW, FILLED, UNKNOW, UNKNOW),
             Arrays.asList(4));
       List<SquareState> expected =
             Arrays.asList(UNKNOW, FILLED, FILLED, FILLED, UNKNOW);
@@ -139,75 +139,5 @@ public class TestDeductorSequences {
             Arrays.asList(UNKNOW, UNKNOW, STRIKE, UNKNOW, UNKNOW, UNKNOW),
             0);
       assertEquals(3, firstFit);
-   }
-
-   @Test
-   public void testGeneric1() {
-      List<SquareState> answer = Deductor.genericDeduction(
-            Arrays.asList(UNKNOW, UNKNOW, FILLED, UNKNOW),
-            Arrays.asList(2));
-      List<SquareState> expected =
-            Arrays.asList(STRIKE, UNKNOW, FILLED, UNKNOW);
-      assertEquals(expected, answer);
-   }
-
-   @Test
-   public void testGeneric2() {
-      List<SquareState> answer = Deductor.genericDeduction(
-            Arrays.asList(STRIKE, UNKNOW, UNKNOW, FILLED, UNKNOW),
-            Arrays.asList(2));
-      List<SquareState> expected =
-            Arrays.asList(STRIKE, STRIKE, UNKNOW, FILLED, UNKNOW);
-      assertEquals(expected, answer);
-   }
-
-   @Test
-   public void testGeneric3() {
-      List<SquareState> answer = Deductor.genericDeduction(
-            Arrays.asList(STRIKE, UNKNOW, UNKNOW, UNKNOW, FILLED, UNKNOW),
-            Arrays.asList(2));
-      List<SquareState> expected =
-            Arrays.asList(STRIKE, UNKNOW, UNKNOW, UNKNOW, FILLED, UNKNOW);
-      assertEquals(expected, answer);
-   }
-
-   @Test
-   public void testGeneric4() {
-      List<SquareState> answer = Deductor.genericDeduction(
-            Arrays.asList(UNKNOW, UNKNOW, UNKNOW, UNKNOW, UNKNOW, UNKNOW),
-            Arrays.asList(4));
-      List<SquareState> expected =
-            Arrays.asList(UNKNOW, UNKNOW, FILLED, FILLED, UNKNOW, UNKNOW);
-      assertEquals(expected, answer);
-   }
-
-   @Test
-   public void testGeneric5() {
-      List<SquareState> answer = Deductor.genericDeduction(
-            Arrays.asList(UNKNOW, UNKNOW, UNKNOW, UNKNOW, UNKNOW, UNKNOW),
-            Arrays.asList(2, 2));
-      List<SquareState> expected =
-            Arrays.asList(UNKNOW, FILLED, UNKNOW, UNKNOW, FILLED, UNKNOW);
-      assertEquals(expected, answer);
-   }
-
-   @Test
-   public void testGeneric6() {
-      List<SquareState> answer = Deductor.genericDeduction(
-            Arrays.asList(UNKNOW, UNKNOW, STRIKE, UNKNOW, UNKNOW, UNKNOW),
-            Arrays.asList(3));
-      List<SquareState> expected =
-            Arrays.asList(STRIKE, STRIKE, STRIKE, FILLED, FILLED, FILLED);
-      assertEquals(expected, answer);
-   }
-
-   @Test
-   public void testGeneric7() {
-      List<SquareState> answer = Deductor.genericDeduction(
-            Arrays.asList(UNKNOW, UNKNOW, UNKNOW, STRIKE, STRIKE, UNKNOW, FILLED, FILLED, FILLED, FILLED),
-            Arrays.asList(2, 4));
-      List<SquareState> expected =
-            Arrays.asList(UNKNOW, FILLED, UNKNOW, STRIKE, STRIKE, STRIKE, FILLED, FILLED, FILLED, FILLED);
-      assertEquals(expected, answer);
    }
 }

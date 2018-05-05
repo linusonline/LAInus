@@ -96,7 +96,7 @@ public class Solution {
       return knownSquaresInSequence(getColumn(column));
    }
 
-   public long knownSquaresInSequence(List<SquareState> row) {
+   public static long knownSquaresInSequence(List<SquareState> row) {
       return row.stream().filter(state -> state != SquareState.UNKNOW).count();
    }
 

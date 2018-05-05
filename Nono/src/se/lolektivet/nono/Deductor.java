@@ -1,6 +1,7 @@
 package se.lolektivet.nono;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Deductor {
@@ -189,7 +190,7 @@ public class Deductor {
       int minimum = clues.stream().mapToInt(Integer::intValue).sum() + clues.size() - 1;
       int slack = length - minimum;
       boolean fullRow = slack == 0;
-      Answer answer = new Answer(createUnknownSequence(length));
+      Answer answer = new Answer(existing);
       int current = 0;
       for (Integer clue : clues) {
          if (clue > slack) {
@@ -216,7 +217,11 @@ public class Deductor {
       return answer.get();
    }
 
-   public static List<SquareState> fillInShortestClueFromEdges(List<SquareState> existing, List<Integer> clues) {
+   public static List<SquareState> fillInShortestClueFromEdges(List<SquareState> existing, List<Integer> numbers) {
+      return applyDeductionInBothDirections(Deductor::fillInShortestClueFromEdgesOnce, existing, numbers);
+   }
+
+   public static List<SquareState> fillInShortestClueFromEdgesOnce(List<SquareState> existing, List<Integer> clues) {
       Answer answer = new Answer(existing);
       final int shortest = getShortestClue(clues);
       int lastBlocked = -1;
@@ -228,24 +233,6 @@ public class Deductor {
             isTracing = false;
          } else if (isTracing) {
             if (i - lastBlocked <= shortest) {
-               answer.set(i, SquareState.FILLED);
-            }
-         } else {
-            if (existing.get(i).equals(SquareState.FILLED)) {
-               isTracing = true;
-            }
-         }
-      }
-
-      lastBlocked = existing.size();
-      isTracing = false;
-
-      for (int i = existing.size() - 1; i >= 0; i--) {
-         if (existing.get(i).equals(SquareState.STRIKE)) {
-            lastBlocked = i;
-            isTracing = false;
-         } else if (isTracing) {
-            if (lastBlocked - i <= shortest) {
                answer.set(i, SquareState.FILLED);
             }
          } else {
@@ -292,6 +279,41 @@ public class Deductor {
       return answer.get();
    }
 
+   public static List<SquareState> genericDeduction(List<SquareState> existing, List<Integer> numbers) {
+      return applyDeductionInBothDirections(Deductor::genericDeductionOnce, existing, numbers);
+   }
+
+   public static List<SquareState> genericDeductionOnce(List<SquareState> existing, List<Integer> numbers) {
+      List<Clue> clues = createClues(numbers, existing.size());
+
+      int gapStart = 0;
+
+      for (int clueNr = 0; clueNr < clues.size(); clueNr++) {
+         int firstFit = findFirstFit(clues.get(clueNr).value, existing, gapStart);
+         int offset = firstFit - gapStart;
+
+         offsetCluesToRight(clues, clueNr, offset);
+
+         if (clues.get(clueNr).earliestEnd < existing.size() && existing.get(clues.get(clueNr).earliestEnd).equals(SquareState.FILLED)) {
+            offset++;
+            offsetCluesToRight(clues, clueNr, 1);
+         }
+
+         gapStart += offset;
+         // This would give false conclusions.
+//         for (int i = clues.get(clueNr).earliestStart; i < clues.get(clueNr).earliestEnd; i++) {
+//            if (existing.get(i).equals(SquareState.FILLED)) {
+//               setLatestStartForClue(clues.get(clueNr), i);
+//               break;
+//            }
+//         }
+
+         gapStart += clues.get(clueNr).value + 1;
+      }
+
+      return cluesToAnswer(clues, existing).get();
+   }
+
    public static int findFirstFit(int clue, List<SquareState> existing, int start) {
       for (int i = start; i < start + clue; i++) {
          if (i >= existing.size()) {
@@ -304,46 +326,24 @@ public class Deductor {
       return start;
    }
 
-   public static List<SquareState> genericDeduction(List<SquareState> existing, List<Integer> clueNrs) {
-      List<Streak> streaks = listStreaks(existing);
-      List<Clue> clues = createClues(clueNrs, existing.size());
+   public static List<SquareState> repeatDeduction(Deduction deduction, List<SquareState> existing, List<Integer> numbers) {
+      long before;
+      long after;
+      List<SquareState> current = existing;
+      List<SquareState> answer;
+      after = Solution.knownSquaresInSequence(current);
+      do {
+         before = after;
+         answer = deduction.apply(current, numbers);
+         after = Solution.knownSquaresInSequence(current);
+         current = answer;
+      } while (before < after);
+      return answer;
+   }
 
-      int gapStart = 0;
-      int firstFit = findFirstFit(clues.get(0).value, existing, gapStart);
-      int offset = firstFit - gapStart;
-
-      // while (gapStart + offset < existing.size() && existing.get(gapStart + offset).equals(SquareState.STRIKE)) {
-      //    offset++;
-      // }
-
-      offsetCluesToRightWithNumber(clues, 0, offset);
-
-      if (!clues.isEmpty() && clues.get(0).earliestEnd < existing.size() && existing.get(clues.get(0).earliestEnd).equals(SquareState.FILLED)) {
-         offset++;
-         offsetCluesToRightWithNumber(clues, 0, 1);
-         //answer.set(gapStart, SquareState.STRIKE);
-      }
-
-      if (clues.size() < 2) {
-         return cluesToAnswer(clues, existing).get();
-      }
-
-      gapStart += offset + clues.get(0).value + 1;
-      firstFit = findFirstFit(clues.get(1).value, existing, gapStart);
-      offset = firstFit - gapStart;
-      // while (gapStart + offset < existing.size() && existing.get(gapStart + offset).equals(SquareState.STRIKE)) {
-      //    offset++;
-      // }
-
-      offsetCluesToRightWithNumber(clues, 1, offset);
-
-      if (!clues.isEmpty() && clues.get(1).earliestEnd < existing.size() && existing.get(clues.get(1).earliestEnd).equals(SquareState.FILLED)) {
-         offset++;
-         offsetCluesToRightWithNumber(clues, 1, 1);
-         //answer.set(gapStart, SquareState.STRIKE);
-      }
-
-      return cluesToAnswer(clues, existing).get();
+   public void repeatDeductionOnRow(int row, Deduction deduction) {
+      List<SquareState> answer = repeatDeduction(deduction, _solution.getRow(row), _problem.rows.get(row));
+      mergeSequenceToRow(answer, row);
    }
 
    private static Answer cluesToAnswer(List<Clue> clues, List<SquareState> existing) {
@@ -360,15 +360,33 @@ public class Deductor {
       return answer;
    }
 
-   private static void offsetCluesToRightWithNumber(List<Clue> clues, int offset) {
-      offsetCluesToRightWithNumber(clues, 0, offset);
+   private static List<SquareState> applyDeductionInBothDirections(Deduction deduction, List<SquareState> existing, List<Integer> numbers) {
+      List<SquareState> answer = deduction.apply(existing, numbers);
+      Collections.reverse(answer);
+      List<Integer> reverseClues = new ArrayList<>(numbers);
+      Collections.reverse(reverseClues);
+      answer = deduction.apply(answer, reverseClues);
+      Collections.reverse(answer);
+      return answer;
    }
 
-   private static void offsetCluesToRightWithNumber(List<Clue> clues, int firstClueFromLeft, int offset) {
+   private static void offsetCluesToRight(List<Clue> clues, int offset) {
+      offsetCluesToRight(clues, 0, offset);
+   }
+
+   private static void offsetCluesToRight(List<Clue> clues, int firstClueFromLeft, int offset) {
       for (int i = firstClueFromLeft; i < clues.size(); i++) {
          clues.get(i).earliestStart += offset;
          clues.get(i).earliestEnd += offset;
       }
+   }
+
+   private static void setLatestStartForClue(Clue clue, int latestStart) {
+      if (latestStart > clue.latestStart) {
+         throw new ContradictionException();
+      }
+      clue.latestStart = latestStart;
+      clue.latestEnd = latestStart + clue.value;
    }
 
    private static List<Streak> listStreaks(List<SquareState> sequence) {
