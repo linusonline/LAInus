@@ -92,23 +92,23 @@ public class TestDeductorSequences {
 
    @Test
    public void testFirstFit1() {
-      int firstFit = Deductor.findFirstFit(2, Arrays.asList(UNKNOW, UNKNOW), 0);
+      int firstFit = ChainedDeductor.findFirstFit(2, Arrays.asList(UNKNOW, UNKNOW), 0);
       assertEquals(0, firstFit);
    }
 
    @Test (expected = ContradictionException.class)
    public void testFirstFit2() {
-      Deductor.findFirstFit(2, Arrays.asList(UNKNOW), 0);
+      ChainedDeductor.findFirstFit(2, Arrays.asList(UNKNOW), 0);
    }
 
    @Test (expected = ContradictionException.class)
    public void testFirstFit7() {
-      Deductor.findFirstFit(2, Arrays.asList(STRIKE, UNKNOW, STRIKE), 0);
+      ChainedDeductor.findFirstFit(2, Arrays.asList(STRIKE, UNKNOW, STRIKE), 0);
    }
 
    @Test
    public void testFirstFit3() {
-      int firstFit = Deductor.findFirstFit(1,
+      int firstFit = ChainedDeductor.findFirstFit(1,
             Arrays.asList(STRIKE, UNKNOW),
             0);
       assertEquals(1, firstFit);
@@ -116,12 +116,12 @@ public class TestDeductorSequences {
 
    @Test (expected = ContradictionException.class)
    public void testFirstFit4() {
-      Deductor.findFirstFit(1, Arrays.asList(STRIKE, STRIKE), 0);
+      ChainedDeductor.findFirstFit(1, Arrays.asList(STRIKE, STRIKE), 0);
    }
 
    @Test
    public void testFirstFit5() {
-      int firstFit = Deductor.findFirstFit(2,
+      int firstFit = ChainedDeductor.findFirstFit(2,
             Arrays.asList(UNKNOW, STRIKE, UNKNOW, STRIKE, UNKNOW, UNKNOW),
             0);
       assertEquals(4, firstFit);
@@ -129,14 +129,14 @@ public class TestDeductorSequences {
 
    @Test (expected = ContradictionException.class)
    public void testFirstFit6() {
-      Deductor.findFirstFit(2,
+      ChainedDeductor.findFirstFit(2,
             Arrays.asList(UNKNOW, STRIKE, UNKNOW),
             0);
    }
 
    @Test
    public void testFirstFit8() {
-      int firstFit = Deductor.findFirstFit(3,
+      int firstFit = ChainedDeductor.findFirstFit(3,
             Arrays.asList(UNKNOW, UNKNOW, STRIKE, UNKNOW, UNKNOW, UNKNOW),
             0);
       assertEquals(3, firstFit);

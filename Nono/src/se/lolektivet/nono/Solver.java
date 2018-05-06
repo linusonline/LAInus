@@ -1,5 +1,6 @@
 package se.lolektivet.nono;
 
+import se.lolektivet.nono.model.Clue;
 import se.lolektivet.nono.model.Problem;
 import se.lolektivet.nono.model.Solution;
 import se.lolektivet.nono.model.SquareState;
@@ -12,8 +13,8 @@ public class Solver {
    private final Problem _problem;
    private final Solution _solution;
 
-   private final List<List<Deductor.Clue>> _rowClues = new ArrayList<>();
-   private final List<List<Deductor.Clue>> _columnClues = new ArrayList<>();
+   private final List<List<Clue>> _rowClues = new ArrayList<>();
+   private final List<List<Clue>> _columnClues = new ArrayList<>();
 
    private final List<Progress> _progressCounters = new ArrayList<>();
 
@@ -67,10 +68,10 @@ public class Solver {
 
    private void createClues() {
       for (List<Integer> row : _problem.rows()) {
-         _rowClues.add(Deductor.createClues(row, _problem.height()));
+         _rowClues.add(ChainedDeductor.createClues(row, _problem.height()));
       }
       for (List<Integer> column : _problem.columns()) {
-         _columnClues.add(Deductor.createClues(column, _problem.width()));
+         _columnClues.add(ChainedDeductor.createClues(column, _problem.width()));
       }
    }
 
