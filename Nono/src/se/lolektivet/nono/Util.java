@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Util {
-   public static String sequenceToString(List<SquareState> seq) {
+   public static String lineToString(List<SquareState> line) {
       StringBuilder stringBuilder = new StringBuilder();
-      for (SquareState state : seq) {
+      for (SquareState state : line) {
          switch (state) {
             case FILLED:
                stringBuilder.append("X"); break;
@@ -19,21 +19,21 @@ public class Util {
       return stringBuilder.toString();
    }
 
-   public static List<SquareState> stringToSequence(String line) {
-      List<SquareState> seq = new ArrayList<>(line.length());
-      for (int i = 0; i < line.length(); i++) {
-         char c = line.charAt(i);
+   public static List<SquareState> stringToLine(String lineString) {
+      List<SquareState> line = new ArrayList<>(lineString.length());
+      for (int i = 0; i < lineString.length(); i++) {
+         char c = lineString.charAt(i);
          switch (c) {
             case 'X':
-               seq.add(SquareState.FILLED); break;
+               line.add(SquareState.FILLED); break;
             case '.':
-               seq.add(SquareState.STRIKE); break;
+               line.add(SquareState.STRIKE); break;
             case ' ':
-               seq.add(SquareState.UNKNOW); break;
+               line.add(SquareState.UNKNOW); break;
             default:
-               throw new RuntimeException("Illegal character in sequence string.");
+               throw new RuntimeException("Illegal character in line string.");
          }
       }
-      return seq;
+      return line;
    }
 }

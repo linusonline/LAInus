@@ -296,6 +296,6 @@ public class TestTrivialDeduction {
    }
 
    private void testTrivialDeduction(String testType, int testCase) {
-      TestUtils.testDeduction(Deductor::fillInTrivialSequence, testType, testCase);
+      TestUtils.testDeduction(Deductor::startingDeduction, testType, testCase);
    }
 }

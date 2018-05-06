@@ -33,89 +33,89 @@ public class Sequences {
       List<SquareState> solution;
 
       clues = Arrays.asList(2);
-      problem  = Util.stringToSequence("  ");
-      solution = Util.stringToSequence("XX");
+      problem  = Util.stringToLine("  ");
+      solution = Util.stringToLine("XX");
       allTestCases.add(new TestCase(clues, problem, solution));
 
       clues = Arrays.asList(1, 1);
-      problem  = Util.stringToSequence("     ");
-      solution = Util.stringToSequence("     ");
+      problem  = Util.stringToLine("     ");
+      solution = Util.stringToLine("     ");
       allTestCases.add(new TestCase(clues, problem, solution));
 
       clues = Arrays.asList(3);
-      problem  = Util.stringToSequence("     ");
-      solution = Util.stringToSequence("  X  ");
+      problem  = Util.stringToLine("     ");
+      solution = Util.stringToLine("  X  ");
       allTestCases.add(new TestCase(clues, problem, solution));
 
       clues = Arrays.asList(3, 1);
-      problem  = Util.stringToSequence("     ");
-      solution = Util.stringToSequence("XXX.X");
+      problem  = Util.stringToLine("     ");
+      solution = Util.stringToLine("XXX.X");
       allTestCases.add(new TestCase(clues, problem, solution));
 
       clues = Arrays.asList(4);
-      problem  = Util.stringToSequence("     ");
-      solution = Util.stringToSequence(" XXX ");
+      problem  = Util.stringToLine("     ");
+      solution = Util.stringToLine(" XXX ");
       allTestCases.add(new TestCase(clues, problem, solution));
 
       clues = Arrays.asList(4);
-      problem  = Util.stringToSequence("  X  ");
-      solution = Util.stringToSequence(" XXX ");
+      problem  = Util.stringToLine("  X  ");
+      solution = Util.stringToLine(" XXX ");
       allTestCases.add(new TestCase(clues, problem, solution));
 
       clues = Arrays.asList(2);
-      problem  = Util.stringToSequence("  X ");
-      solution = Util.stringToSequence(". X ");
+      problem  = Util.stringToLine("  X ");
+      solution = Util.stringToLine(". X ");
       allTestCases.add(new TestCase(clues, problem, solution));
 
       clues = Arrays.asList(2);
-      problem  = Util.stringToSequence(".  X ");
-      solution = Util.stringToSequence(".. X ");
+      problem  = Util.stringToLine(".  X ");
+      solution = Util.stringToLine(".. X ");
       allTestCases.add(new TestCase(clues, problem, solution));
 
       clues = Arrays.asList(2);
-      problem  = Util.stringToSequence(".   X ");
-      solution = Util.stringToSequence("... X ");
+      problem  = Util.stringToLine(".   X ");
+      solution = Util.stringToLine("... X ");
       allTestCases.add(new TestCase(clues, problem, solution));
 
       clues = Arrays.asList(4);
-      problem  = Util.stringToSequence("      ");
-      solution = Util.stringToSequence("  XX  ");
+      problem  = Util.stringToLine("      ");
+      solution = Util.stringToLine("  XX  ");
       allTestCases.add(new TestCase(clues, problem, solution));
 
       clues = Arrays.asList(2, 2);
-      problem  = Util.stringToSequence("      ");
-      solution = Util.stringToSequence(" X  X ");
+      problem  = Util.stringToLine("      ");
+      solution = Util.stringToLine(" X  X ");
       allTestCases.add(new TestCase(clues, problem, solution));
 
       clues = Arrays.asList(3);
-      problem  = Util.stringToSequence("  .   ");
-      solution = Util.stringToSequence("...XXX");
+      problem  = Util.stringToLine("  .   ");
+      solution = Util.stringToLine("...XXX");
       allTestCases.add(new TestCase(clues, problem, solution));
 
       clues = Arrays.asList(2, 4);
-      problem  = Util.stringToSequence("   .. XXXX");
-      solution = Util.stringToSequence(" X ...XXXX");
+      problem  = Util.stringToLine("   .. XXXX");
+      solution = Util.stringToLine(" X ...XXXX");
       allTestCases.add(new TestCase(clues, problem, solution));
 
       clues = Arrays.asList(2);
-      problem  = Util.stringToSequence("   X   ");
-      solution = Util.stringToSequence(".. X ..");
+      problem  = Util.stringToLine("   X   ");
+      solution = Util.stringToLine(".. X ..");
       allTestCases.add(new TestCase(clues, problem, solution));
 
       clues = Arrays.asList(3);
-      problem  = Util.stringToSequence(" X    ");
-      solution = Util.stringToSequence(" XX ..");
+      problem  = Util.stringToLine(" X    ");
+      solution = Util.stringToLine(" XX ..");
       allTestCases.add(new TestCase(clues, problem, solution));
 
       clues = Arrays.asList(2, 2);
-      problem  = Util.stringToSequence("   X   ");
-      solution = Util.stringToSequence("   X   ");
+      problem  = Util.stringToLine("   X   ");
+      solution = Util.stringToLine("   X   ");
       allTestCases.add(new TestCase(clues, problem, solution));
 
       // Case X
       clues = Arrays.asList(5, 2);
-      problem  = Util.stringToSequence("          .  X    ");
-      solution = Util.stringToSequence("          .. X ...");
+      problem  = Util.stringToLine("          .  X    ");
+      solution = Util.stringToLine("          .. X ...");
       allTestCases.add(new TestCase(clues, problem, solution));
    }
 }

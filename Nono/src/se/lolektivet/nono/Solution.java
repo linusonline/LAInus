@@ -75,7 +75,7 @@ public class Solution {
    public int getKnownSquares() {
       int known = 0;
       for (List<SquareState> row : rows) {
-         known += knownSquaresInSequence(row);
+         known += knownSquaresInLine(row);
       }
       return known;
    }
@@ -89,14 +89,14 @@ public class Solution {
    }
 
    public long knownSquaresInRow(int row) {
-      return knownSquaresInSequence(getRow(row));
+      return knownSquaresInLine(getRow(row));
    }
 
    public long knownSquaresInColumn(int column) {
-      return knownSquaresInSequence(getColumn(column));
+      return knownSquaresInLine(getColumn(column));
    }
 
-   public static long knownSquaresInSequence(List<SquareState> row) {
+   public static long knownSquaresInLine(List<SquareState> row) {
       return row.stream().filter(state -> state != SquareState.UNKNOW).count();
    }
 

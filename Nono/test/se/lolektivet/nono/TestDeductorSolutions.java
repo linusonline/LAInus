@@ -56,7 +56,7 @@ public class TestDeductorSolutions {
 
    @Test
    public void testTrivialSolution2() {
-      Solution actual = new Deductor(problem).fillInTrivial().getSolution();
+      Solution actual = new Deductor(problem).startingDeduction().getSolution();
       assertEquals(solutionTrivial.getRow(0), actual.getRow(0));
       assertEquals(solutionTrivial.getRow(1), actual.getRow(1));
       assertEquals(solutionTrivial.getRow(2), actual.getRow(2));
@@ -66,7 +66,7 @@ public class TestDeductorSolutions {
 
    @Test
    public void testCrossDoneRows() {
-      Solution actual = new Deductor(problem).fillInTrivial().crossRestInCompleteRows().getSolution();
+      Solution actual = new Deductor(problem).startingDeduction().crossRestInCompleteRows().getSolution();
 
       assertEquals(solutionCrossDone.getRow(0), actual.getRow(0));
       assertEquals(solutionCrossDone.getRow(1), actual.getRow(1));
@@ -77,7 +77,7 @@ public class TestDeductorSolutions {
 
    @Test
    public void testFillInShortest() {
-      Solution actual = new Deductor(problem).fillInTrivial().crossRestInCompleteRows().fillInShortestClueFromEdges().getSolution();
+      Solution actual = new Deductor(problem).startingDeduction().crossRestInCompleteRows().fillInShortestClueFromEdges().getSolution();
 
       assertEquals(solutionFillInShortest.getRow(0), actual.getRow(0));
       assertEquals(solutionFillInShortest.getRow(1), actual.getRow(1));
@@ -89,7 +89,7 @@ public class TestDeductorSolutions {
    @Test
    public void testCrossShortCross() {
       Solution actual = new Deductor(problem)
-            .fillInTrivial()
+            .startingDeduction()
             .crossRestInCompleteRows()
             .fillInShortestClueFromEdges()
             .crossRestInCompleteRows().getSolution();

@@ -17,9 +17,9 @@ public class TestUtils {
             Cases.solution(testType, testCase);
 
       System.out.println("CLUE: " + Cases.clues(testType, testCase));
-      System.out.println("PROB: [" + se.lolektivet.nono.Util.sequenceToString(Cases.problem(testType, testCase)) + "]");
-      System.out.println("EXPC: [" + se.lolektivet.nono.Util.sequenceToString(Cases.solution(testType, testCase)) + "]");
-      System.out.println("ANSW: [" + se.lolektivet.nono.Util.sequenceToString(answer) + "]");
+      System.out.println("PROB: [" + se.lolektivet.nono.Util.lineToString(Cases.problem(testType, testCase)) + "]");
+      System.out.println("EXPC: [" + se.lolektivet.nono.Util.lineToString(Cases.solution(testType, testCase)) + "]");
+      System.out.println("ANSW: [" + se.lolektivet.nono.Util.lineToString(answer) + "]");
 
       assertEquals(expected, answer);
    }

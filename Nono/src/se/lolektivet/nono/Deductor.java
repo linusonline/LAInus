@@ -75,22 +75,22 @@ public class Deductor {
    }
 
    private static class Answer {
-      private final List<SquareState> _sequence;
+      private final List<SquareState> _line;
 
       private Answer(List<SquareState> preExisting) {
-         _sequence = new ArrayList<>(preExisting);
+         _line = new ArrayList<>(preExisting);
       }
 
       private void set(int index, SquareState state) {
-         SquareState existing = _sequence.get(index);
+         SquareState existing = _line.get(index);
          if (existing != SquareState.UNKNOW && existing != state) {
             throw new ContradictionException();
          }
-         _sequence.set(index, state);
+         _line.set(index, state);
       }
 
       private List<SquareState> get() {
-         return _sequence;
+         return _line;
       }
    }
 
@@ -108,10 +108,10 @@ public class Deductor {
       }
    }
 
-   private static List<Clue> createClues(List<Integer> numberClues, int totalSequenceLength) {
+   private static List<Clue> createClues(List<Integer> numberClues, int lineLength) {
       List<Clue> clues = new ArrayList<>();
       int minimum = numberClues.stream().mapToInt(Integer::intValue).sum() + numberClues.size() - 1;
-      int slack = totalSequenceLength - minimum;
+      int slack = lineLength - minimum;
 
       int nextEarliestStart = 0;
       for (Integer numberClue : numberClues) {
@@ -125,66 +125,66 @@ public class Deductor {
       return _solution;
    }
 
-   public Deductor fillInTrivial() {
+   public Deductor startingDeduction() {
       int previouslyKnownSquares = _solution.getKnownSquares();
 
-      applyDeductionToAllSequences(Deductor::fillInTrivialSequence);
+      applyDeductionToAllLines(Deductor::startingDeduction);
       addProgress(_solution.getKnownSquares() - previouslyKnownSquares);
       return this;
    }
 
    public Deductor crossRestInCompleteRows() {
       int previouslyKnownSquares = _solution.getKnownSquares();
-      applyDeductionToAllSequences(Deductor::crossRestIfComplete);
+      applyDeductionToAllLines(Deductor::crossRestIfComplete);
       addProgress(_solution.getKnownSquares() - previouslyKnownSquares);
       return this;
    }
 
    public Deductor fillInShortestClueFromEdges() {
       int previouslyKnownSquares = _solution.getKnownSquares();
-      applyDeductionToAllSequences(Deductor::fillInShortestClueFromEdges);
+      applyDeductionToAllLines(Deductor::fillInShortestClueFromEdges);
       addProgress(_solution.getKnownSquares() - previouslyKnownSquares);
       return this;
    }
 
    public Deductor crossShortGaps() {
       int previouslyKnownSquares = _solution.getKnownSquares();
-      applyDeductionToAllSequences(Deductor::crossShortGaps);
+      applyDeductionToAllLines(Deductor::crossShortGaps);
       addProgress(_solution.getKnownSquares() - previouslyKnownSquares);
       return this;
    }
 
    public Deductor fillRestInCompletelyCrossedRows() {
       int previouslyKnownSquares = _solution.getKnownSquares();
-      applyDeductionToAllSequences(Deductor::fillRestIfCompletelyCrossed);
+      applyDeductionToAllLines(Deductor::fillRestIfCompletelyCrossed);
       addProgress(_solution.getKnownSquares() - previouslyKnownSquares);
       return this;
    }
 
    public Deductor fitCluesToGaps() {
       int previouslyKnownSquares = _solution.getKnownSquares();
-      applyDeductionToAllSequences(Deductor::fitCluesToGaps);
+      applyDeductionToAllLines(Deductor::fitCluesToGaps);
       addProgress(_solution.getKnownSquares() - previouslyKnownSquares);
       return this;
    }
 
-   private Deductor applyDeductionToAllSequences(Deduction deduction) {
+   private Deductor applyDeductionToAllLines(Deduction deduction) {
       for (int row = 0; row < _problem.height(); row++) {
          if (!_solution.isRowDone(row)) {
             List<SquareState> answer = deduction.apply(_solution.getRow(row), _problem.rows.get(row));
-            mergeSequenceToRow(answer, row);
+            mergeLineToRow(answer, row);
          }
       }
       for (int column = 0; column < _problem.width(); column++) {
          if (!_solution.isColumnDone(column)) {
             List<SquareState> answer = deduction.apply(_solution.getColumn(column), _problem.columns.get(column));
-            mergeSequenceToColumn(answer, column);
+            mergeLineToColumn(answer, column);
          }
       }
       return this;
    }
 
-   public static List<SquareState> fillInTrivialSequence(List<SquareState> existing, List<Integer> clues) {
+   public static List<SquareState> startingDeduction(List<SquareState> existing, List<Integer> clues) {
       int length = existing.size();
       int minimum = clues.stream().mapToInt(Integer::intValue).sum() + clues.size() - 1;
       int slack = length - minimum;
@@ -321,11 +321,11 @@ public class Deductor {
       long after;
       List<SquareState> current = existing;
       List<SquareState> answer;
-      after = Solution.knownSquaresInSequence(current);
+      after = Solution.knownSquaresInLine(current);
       do {
          before = after;
          answer = deduction.apply(current, numbers);
-         after = Solution.knownSquaresInSequence(current);
+         after = Solution.knownSquaresInLine(current);
          current = answer;
       } while (before < after);
       return answer;
@@ -333,7 +333,7 @@ public class Deductor {
 
    public void repeatDeductionOnRow(int row, Deduction deduction) {
       List<SquareState> answer = repeatDeduction(deduction, _solution.getRow(row), _problem.rows.get(row));
-      mergeSequenceToRow(answer, row);
+      mergeLineToRow(answer, row);
    }
 
    private static Answer cluesToAnswer(List<Clue> clues, List<SquareState> existing) {
@@ -379,15 +379,15 @@ public class Deductor {
       clue.latestEnd = latestStart + clue.value;
    }
 
-   private static List<Streak> listStreaks(List<SquareState> sequence) {
+   private static List<Streak> listStreaks(List<SquareState> line) {
       List<Streak> streaks = new ArrayList<>();
 
       boolean isInStreak = false;
       int streakStart = -1;
       int streakLength = 0;
 
-      for (int i = 0; i < sequence.size(); i++) {
-         SquareState state = sequence.get(i);
+      for (int i = 0; i < line.size(); i++) {
+         SquareState state = line.get(i);
          if (state.equals(SquareState.FILLED)) {
             if (!isInStreak) {
                streakStart = i;
@@ -435,21 +435,21 @@ public class Deductor {
       return clues.stream().min(Integer::compareTo).get();
    }
 
-   private static List<SquareState> createUnknownSequence(int length) {
-      List<SquareState> sequence = new ArrayList<>(length);
+   private static List<SquareState> createEmptyLine(int length) {
+      List<SquareState> line = new ArrayList<>(length);
       for (int i = 0; i < length; i++) {
-         sequence.add(i, SquareState.UNKNOW);
+         line.add(i, SquareState.UNKNOW);
       }
-      return sequence;
+      return line;
    }
 
-   private void mergeSequenceToRow(List<SquareState> toMerge, int row) {
+   private void mergeLineToRow(List<SquareState> toMerge, int row) {
       for (int column = 0; column < toMerge.size(); column++) {
          _solution.setSquare(row, column, _solution.getSquare(row, column).add(toMerge.get(column)));
       }
    }
 
-   private void mergeSequenceToColumn(List<SquareState> toMerge, int column) {
+   private void mergeLineToColumn(List<SquareState> toMerge, int column) {
       for (int row = 0; row < toMerge.size(); row++) {
          _solution.setSquare(row, column, _solution.getSquare(row, column).add(toMerge.get(row)));
       }

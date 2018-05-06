@@ -8,7 +8,7 @@ public class Solver {
    }
 
    public Solution solve() {
-      _deductor.fillInTrivial();
+      _deductor.startingDeduction();
       Deductor.Progress outerCounter = _deductor.getProgressCounter();
       do {
          outerCounter.reset();

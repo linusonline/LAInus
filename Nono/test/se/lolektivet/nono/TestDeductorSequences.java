@@ -23,28 +23,28 @@ public class TestDeductorSequences {
 
    @Test
    public void testTrivialSequence1() {
-      List<SquareState> answer = Deductor.fillInTrivialSequence(empty(5), Arrays.asList(1, 1));
+      List<SquareState> answer = Deductor.startingDeduction(empty(5), Arrays.asList(1, 1));
       List<SquareState> expected = Arrays.asList(UNKNOW, UNKNOW, UNKNOW, UNKNOW, UNKNOW);
       assertEquals(expected, answer);
    }
 
    @Test
    public void testTrivialSequence2() {
-      List<SquareState> answer = Deductor.fillInTrivialSequence(empty(5), Arrays.asList(3));
+      List<SquareState> answer = Deductor.startingDeduction(empty(5), Arrays.asList(3));
       List<SquareState> expected = Arrays.asList(UNKNOW, UNKNOW, FILLED, UNKNOW, UNKNOW);
       assertEquals(expected, answer);
    }
 
    @Test
    public void testTrivialSequence3() {
-      List<SquareState> answer = Deductor.fillInTrivialSequence(empty(5), Arrays.asList(3, 1));
+      List<SquareState> answer = Deductor.startingDeduction(empty(5), Arrays.asList(3, 1));
       List<SquareState> expected = Arrays.asList(FILLED, FILLED, FILLED, STRIKE, FILLED);
       assertEquals(expected, answer);
    }
 
    @Test
    public void testTrivialSequence4() {
-      List<SquareState> answer = Deductor.fillInTrivialSequence(empty(5), Arrays.asList(4));
+      List<SquareState> answer = Deductor.startingDeduction(empty(5), Arrays.asList(4));
       List<SquareState> expected = Arrays.asList(UNKNOW, FILLED, FILLED, FILLED, UNKNOW);
       assertEquals(expected, answer);
    }
