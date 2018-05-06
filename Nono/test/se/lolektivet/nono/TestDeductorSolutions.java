@@ -1,6 +1,10 @@
 package se.lolektivet.nono;
 
 import org.junit.Test;
+import se.lolektivet.nono.model.Problem;
+import se.lolektivet.nono.model.ProblemFactory;
+import se.lolektivet.nono.model.Solution;
+import se.lolektivet.nono.model.SquareState;
 
 import static org.junit.Assert.assertEquals;
 

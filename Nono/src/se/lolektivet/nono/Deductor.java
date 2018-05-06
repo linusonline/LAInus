@@ -1,5 +1,8 @@
 package se.lolektivet.nono;
 
+import se.lolektivet.nono.model.Solution;
+import se.lolektivet.nono.model.SquareState;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

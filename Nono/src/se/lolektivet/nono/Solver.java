@@ -1,5 +1,9 @@
 package se.lolektivet.nono;
 
+import se.lolektivet.nono.model.Problem;
+import se.lolektivet.nono.model.Solution;
+import se.lolektivet.nono.model.SquareState;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,10 +66,10 @@ public class Solver {
    }
 
    private void createClues() {
-      for (List<Integer> row : _problem.rows) {
+      for (List<Integer> row : _problem.rows()) {
          _rowClues.add(Deductor.createClues(row, _problem.height()));
       }
-      for (List<Integer> column : _problem.columns) {
+      for (List<Integer> column : _problem.columns()) {
          _columnClues.add(Deductor.createClues(column, _problem.width()));
       }
    }
@@ -120,13 +124,13 @@ public class Solver {
    private Solver applyDeductionToAllLines(Deduction deduction) {
       for (int row = 0; row < _problem.height(); row++) {
          if (!_solution.isRowDone(row)) {
-            List<SquareState> answer = deduction.apply(_solution.getRow(row), _problem.rows.get(row));
+            List<SquareState> answer = deduction.apply(_solution.getRow(row), _problem.row(row));
             mergeLineToRow(answer, row);
          }
       }
       for (int column = 0; column < _problem.width(); column++) {
          if (!_solution.isColumnDone(column)) {
-            List<SquareState> answer = deduction.apply(_solution.getColumn(column), _problem.columns.get(column));
+            List<SquareState> answer = deduction.apply(_solution.getColumn(column), _problem.column(column));
             mergeLineToColumn(answer, column);
          }
       }
@@ -134,7 +138,7 @@ public class Solver {
    }
 
    public void repeatDeductionOnRow(int row, Deduction deduction) {
-      List<SquareState> answer = Deductor.repeatDeduction(deduction, _solution.getRow(row), _problem.rows.get(row));
+      List<SquareState> answer = Deductor.repeatDeduction(deduction, _solution.getRow(row), _problem.row(row));
       mergeLineToRow(answer, row);
    }
 

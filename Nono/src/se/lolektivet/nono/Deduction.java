@@ -1,5 +1,7 @@
 package se.lolektivet.nono;
 
+import se.lolektivet.nono.model.SquareState;
+
 import java.util.List;
 
 @FunctionalInterface

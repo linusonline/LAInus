@@ -1,15 +1,16 @@
 package se.lolektivet.nono;
 
 import org.junit.Test;
+import se.lolektivet.nono.model.SquareState;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static se.lolektivet.nono.SquareState.FILLED;
-import static se.lolektivet.nono.SquareState.STRIKE;
-import static se.lolektivet.nono.SquareState.UNKNOW;
+import static se.lolektivet.nono.model.SquareState.FILLED;
+import static se.lolektivet.nono.model.SquareState.STRIKE;
+import static se.lolektivet.nono.model.SquareState.UNKNOW;
 
 public class TestDeductorSequences {
 

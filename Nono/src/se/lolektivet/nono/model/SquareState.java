@@ -1,4 +1,4 @@
-package se.lolektivet.nono;
+package se.lolektivet.nono.model;
 
 public enum SquareState {
    FILLED,

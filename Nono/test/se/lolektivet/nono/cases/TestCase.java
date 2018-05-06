@@ -1,6 +1,6 @@
 package se.lolektivet.nono.cases;
 
-import se.lolektivet.nono.SquareState;
+import se.lolektivet.nono.model.SquareState;
 
 import java.util.List;
 

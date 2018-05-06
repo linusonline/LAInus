@@ -1,10 +1,13 @@
 package se.lolektivet.nono;
 
 import org.junit.Test;
+import se.lolektivet.nono.model.Problem;
+import se.lolektivet.nono.model.ProblemFactory;
+import se.lolektivet.nono.model.Solution;
 
 import static org.junit.Assert.assertEquals;
-import static se.lolektivet.nono.SquareState.FILLED;
-import static se.lolektivet.nono.SquareState.STRIKE;
+import static se.lolektivet.nono.model.SquareState.FILLED;
+import static se.lolektivet.nono.model.SquareState.STRIKE;
 
 public class TestSolver {
    private final Problem problem1 = new ProblemFactory().create(5, 5)
