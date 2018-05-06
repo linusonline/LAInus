@@ -1,6 +1,6 @@
 package se.lolektivet.nono.cases;
 
-import se.lolektivet.nono.Deductor;
+import se.lolektivet.nono.Deduction;
 import se.lolektivet.nono.SquareState;
 
 import java.util.List;
@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 
 public class TestUtils {
 
-   public static void testDeduction(Deductor.Deduction deduction, String testType, int testCase) {
+   public static void testDeduction(Deduction deduction, String testType, int testCase) {
       List<SquareState> answer = deduction.apply(
             Cases.problem(testType, testCase),
             Cases.clues(testType, testCase));
