@@ -23,7 +23,7 @@ public class Solver {
             _deductor.fillInShortestClueFromEdges();
          } while (innerCounter.get() > 0);
 
-         _deductor.genericDeduction();
+         _deductor.fitCluesToGaps();
 
       } while (outerCounter.get() > 0);
 

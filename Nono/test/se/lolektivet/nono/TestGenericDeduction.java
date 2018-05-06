@@ -296,6 +296,6 @@ public class TestGenericDeduction {
    }
 
    private void testGenericDeduction(String testType, int testCase) {
-      TestUtils.testDeduction(Deductor::genericDeduction, testType, testCase);
+      TestUtils.testDeduction(Deductor::fitCluesToGaps, testType, testCase);
    }
 }

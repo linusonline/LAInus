@@ -97,7 +97,6 @@ public class Deductor {
    public Deductor(Problem problem) {
       _problem = problem;
       _solution = new Solution(_problem.height(), _problem.width());
-      createClues();
    }
 
    private void createClues() {
@@ -162,9 +161,9 @@ public class Deductor {
       return this;
    }
 
-   public Deductor genericDeduction() {
+   public Deductor fitCluesToGaps() {
       int previouslyKnownSquares = _solution.getKnownSquares();
-      applyDeductionToAllSequences(Deductor::genericDeduction);
+      applyDeductionToAllSequences(Deductor::fitCluesToGaps);
       addProgress(_solution.getKnownSquares() - previouslyKnownSquares);
       return this;
    }
@@ -279,11 +278,11 @@ public class Deductor {
       return answer.get();
    }
 
-   public static List<SquareState> genericDeduction(List<SquareState> existing, List<Integer> numbers) {
-      return applyDeductionInBothDirections(Deductor::genericDeductionOnce, existing, numbers);
+   public static List<SquareState> fitCluesToGaps(List<SquareState> existing, List<Integer> numbers) {
+      return applyDeductionInBothDirections(Deductor::fitCluesToGapsOnce, existing, numbers);
    }
 
-   public static List<SquareState> genericDeductionOnce(List<SquareState> existing, List<Integer> numbers) {
+   public static List<SquareState> fitCluesToGapsOnce(List<SquareState> existing, List<Integer> numbers) {
       List<Clue> clues = createClues(numbers, existing.size());
 
       int gapStart = 0;
@@ -299,16 +298,7 @@ public class Deductor {
             offsetCluesToRight(clues, clueNr, 1);
          }
 
-         gapStart += offset;
-         // This would give false conclusions.
-//         for (int i = clues.get(clueNr).earliestStart; i < clues.get(clueNr).earliestEnd; i++) {
-//            if (existing.get(i).equals(SquareState.FILLED)) {
-//               setLatestStartForClue(clues.get(clueNr), i);
-//               break;
-//            }
-//         }
-
-         gapStart += clues.get(clueNr).value + 1;
+         gapStart += offset + clues.get(clueNr).value + 1;
       }
 
       return cluesToAnswer(clues, existing).get();

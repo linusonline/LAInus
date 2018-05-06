@@ -1,7 +1,5 @@
 package se.lolektivet.nono;
 
-import org.omg.CORBA.UNKNOWN;
-
 import java.util.ArrayList;
 import java.util.List;
 

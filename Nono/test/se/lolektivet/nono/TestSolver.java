@@ -3,7 +3,6 @@ package se.lolektivet.nono;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 import static se.lolektivet.nono.SquareState.FILLED;
 import static se.lolektivet.nono.SquareState.STRIKE;
 
