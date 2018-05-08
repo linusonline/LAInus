@@ -15,6 +15,7 @@ public class Cases {
    public static final String FALSE = "False Deduction";
    public static final String SCRATCH = "From scratch";
    public static final String MISC = "Misc";
+   public static final String HARD = "Hard";
 
    public static final List<TestCase> allTestCases = new ArrayList<>();
    public static final Map<String, List<TestCase>> allTestCasesByType = new HashMap<>();
@@ -39,6 +40,10 @@ public class Cases {
       allTestCasesByType.get(type).add(new TestCase(clues, problem, solution));
    }
 
+   private static void testCase(String type, List<Integer> clues, String problem, String solution) {
+      add(type, clues, Util.stringToLine(problem), Util.stringToLine(solution));
+   }
+
    public static void init() {
       List<Integer> clues;
       List<SquareState> problem;
@@ -52,6 +57,7 @@ public class Cases {
       allTestCasesByType.put(FALSE, new ArrayList<>());
       allTestCasesByType.put(SCRATCH, new ArrayList<>());
       allTestCasesByType.put(MISC, new ArrayList<>());
+      allTestCasesByType.put(HARD, new ArrayList<>());
 
       // Trivial elimination
 
@@ -245,6 +251,11 @@ public class Cases {
       solution = Util.stringToLine(" XX     ");
       add(STREAK_FILL, clues, problem, solution);
 
+      clues = Arrays.asList(5, 2);
+      problem  = Util.stringToLine("    XXXX    ");
+      solution = Util.stringToLine("... XXXX  X ");
+      add(STREAK_FILL, clues, problem, solution);
+
 
 
       // From scratch
@@ -361,5 +372,34 @@ public class Cases {
       solution = Util.stringToLine("..  XX  X .");
       add(MISC, clues, problem, solution);
 
+      // Hard
+
+      testCase(HARD, Arrays.asList(2, 2),
+            "   XX   ",
+            "  .XX.  ");
+
+      testCase(HARD, Arrays.asList(3, 2, 2),
+            "       XX     ",
+            "      .XX.    ");
+
+      testCase(HARD, Arrays.asList(1, 2, 2),
+            "    .X    ",
+            "    .XX.  ");
+
+      testCase(HARD, Arrays.asList(1, 2, 3),
+            "    .X     ",
+            "    .XX    ");
+
+      testCase(HARD, Arrays.asList(3, 3),
+            "     XX XX     ",
+            "....XXX.XXX....");
+
+      testCase(HARD, Arrays.asList(3, 3),
+            "     XX  XX    ",
+            ".... XX  XX ...");
+
+      testCase(HARD, Arrays.asList(5, 5),
+            "         XX  XX  X      ",
+            "...... XXXX  XXXXX......");
    }
 }

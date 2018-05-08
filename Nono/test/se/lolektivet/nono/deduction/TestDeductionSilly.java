@@ -190,6 +190,11 @@ public class TestDeductionSilly {
       testSillyDeduction(Cases.STREAK_FILL, 1);
    }
 
+   @Test
+   public void testFillInByStreak2() {
+      testSillyDeduction(Cases.STREAK_FILL, 2);
+   }
+
 
 
    @Test
@@ -294,6 +299,43 @@ public class TestDeductionSilly {
    @Test
    public void testMisc6() {
       testSillyDeduction(Cases.MISC, 6);
+   }
+
+
+
+   @Test
+   public void testHardProblem0() {
+      testSillyDeduction(Cases.HARD, 0);
+   }
+
+   @Test
+   public void testHardProblem1() {
+      testSillyDeduction(Cases.HARD, 1);
+   }
+
+   @Test
+   public void testHardProblem2() {
+      testSillyDeduction(Cases.HARD, 2);
+   }
+
+   @Test
+   public void testHardProblem3() {
+      testSillyDeduction(Cases.HARD, 3);
+   }
+
+   @Test
+   public void testHardProblem4() {
+      testSillyDeduction(Cases.HARD, 4);
+   }
+
+   @Test
+   public void testHardProblem5() {
+      testSillyDeduction(Cases.HARD, 5);
+   }
+
+   @Test
+   public void testHardProblem6() {
+      testSillyDeduction(Cases.HARD, 6);
    }
 
    private void testSillyDeduction(String testType, int testCase) {

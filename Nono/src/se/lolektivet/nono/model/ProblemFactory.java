@@ -19,6 +19,45 @@ public class ProblemFactory {
       _columns = new ArrayList<>();
    }
 
+   public static Problem create(Solution completeSolution) {
+      List<List<Integer>> rows = new ArrayList<>();
+      List<List<Integer>> columns = new ArrayList<>();
+
+      for (int row = 0; row < completeSolution.getHeight(); row++) {
+         rows.add(listClues(completeSolution.getRow(row)));
+      }
+
+      for (int column = 0; column < completeSolution.getWidth(); column++) {
+         columns.add(listClues(completeSolution.getColumn(column)));
+      }
+
+      return new Problem(rows, columns);
+   }
+
+   public static List<Integer> listClues(List<SquareState> line) {
+      List<Integer> clues = new ArrayList<>();
+
+      boolean isInStreak = false;
+      int streakLength = 0;
+
+      for (SquareState state : line) {
+         if (state.isFilled()) {
+            if (!isInStreak) {
+               isInStreak = true;
+               streakLength = 0;
+            }
+            streakLength++;
+         } else if (isInStreak) {
+            clues.add(streakLength);
+            isInStreak = false;
+         }
+      }
+      if (isInStreak) {
+         clues.add(streakLength);
+      }
+      return clues;
+   }
+
    public ProblemFactory create(int height, int width) {
       if (_created) {
          throw new RuntimeException("Problem already created!");
@@ -29,12 +68,20 @@ public class ProblemFactory {
       return this;
    }
 
+   public ProblemFactory r(Integer... numbers) {
+      return addRowFromTop(numbers);
+   }
+
    public ProblemFactory addRowFromTop(Integer... numbers) {
       if (!_created || _finished) {
          throw new RuntimeException();
       }
       _rows.add(Collections.unmodifiableList(Arrays.asList(numbers)));
       return this;
+   }
+
+   public ProblemFactory c(Integer... numbers) {
+      return addColumnFromLeft(numbers);
    }
 
    public ProblemFactory addColumnFromLeft(Integer... numbers) {

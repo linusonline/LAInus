@@ -1,5 +1,7 @@
 package se.lolektivet.nono.model;
 
+import se.lolektivet.nono.Util;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -20,6 +22,23 @@ public class Solution {
       }
       _height = height;
       _width = width;
+   }
+
+   public static Solution createFromString(String... rows) {
+      Solution solution = new Solution(rows.length, rows[0].length());
+
+      for (int row = 0; row < rows.length; row++) {
+         solution.rows.set(row, Util.stringToLine(rows[row]));
+      }
+      return solution;
+   }
+
+   public int getHeight() {
+      return _height;
+   }
+
+   public int getWidth() {
+      return _width;
    }
 
    public Solution setRow(int row, SquareState... states) {

@@ -190,6 +190,11 @@ public class TestGenericDeduction {
       testGenericDeduction(Cases.STREAK_FILL, 1);
    }
 
+   @Test
+   public void testFillInByStreak2() {
+      testGenericDeduction(Cases.STREAK_FILL, 2);
+   }
+
 
 
    @Test

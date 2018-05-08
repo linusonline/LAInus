@@ -64,12 +64,24 @@ public class ChainedDeductor {
    public static List<Clue> fitCluesRightToStreaksOnce(List<SquareState> line, List<Clue> clues) {
       for (int clueNr = 0; clueNr < clues.size(); clueNr++) {
 
-         if (clues.get(clueNr).earliestEnd < line.size() && line.get(clues.get(clueNr).earliestEnd).isFilled()) {
-            pushClueToRight(clues, clueNr, 1);
+         int earliestEnd = clues.get(clueNr).earliestEnd;
+         while (earliestEnd < line.size() && line.get(earliestEnd).isFilled()) {
+            earliestEnd++;
          }
+         int push = earliestEnd - clues.get(clueNr).earliestEnd;
+         pushClueToRight(clues, clueNr, push);
       }
       return clues;
    }
+
+   // TODO: Look for streaks that can only fit to a single clue (fit: earliest start < streak start, streak end < latest end, streak length <= length)
+   // TODO: When considering whether a clue fits a streak, need also combine the streak in question with all other streaks that are known to ONLY fit the clue in question.
+   // TODO: How to solve this?
+   //    3, 3 [     XX XX     ] -> [....XXX.XXX....]
+   //    3, 3 [     XX  XX    ] -> [.... XX  XX ...]
+   //    5, 5 [         XX  XX  X      ] -> [...... XXXX  XXXXX......]
+   // Could possibly iterate over streaks and for each pair of streaks, consider them as one streak and see if it would
+   // fit any clue. Kind of backward from above to-do ideas.
 
    public static List<SquareState> sillyDeduction(List<SquareState> line, List<Integer> clueNumbers) {
       List<Clue> clues = ChainedDeductor.createClues(clueNumbers, line.size());
