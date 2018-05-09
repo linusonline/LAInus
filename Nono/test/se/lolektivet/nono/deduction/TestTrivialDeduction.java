@@ -296,6 +296,43 @@ public class TestTrivialDeduction {
       testTrivialDeduction(Cases.MISC, 6);
    }
 
+
+
+   @Test
+   public void testHardProblem0() {
+      testTrivialDeduction(Cases.HARD, 0);
+   }
+
+   @Test
+   public void testHardProblem1() {
+      testTrivialDeduction(Cases.HARD, 1);
+   }
+
+   @Test
+   public void testHardProblem2() {
+      testTrivialDeduction(Cases.HARD, 2);
+   }
+
+   @Test
+   public void testHardProblem3() {
+      testTrivialDeduction(Cases.HARD, 3);
+   }
+
+   @Test
+   public void testHardProblem4() {
+      testTrivialDeduction(Cases.HARD, 4);
+   }
+
+   @Test
+   public void testHardProblem5() {
+      testTrivialDeduction(Cases.HARD, 5);
+   }
+
+   @Test
+   public void testHardProblem6() {
+      testTrivialDeduction(Cases.HARD, 6);
+   }
+
    private void testTrivialDeduction(String testType, int testCase) {
       TestUtils.testSimpleDeduction(Deductor::startingDeduction, testType, testCase);
    }

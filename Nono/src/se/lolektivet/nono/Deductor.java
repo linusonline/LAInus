@@ -34,6 +34,9 @@ public class Deductor {
       int length = existing.size();
       int minimum = clues.stream().mapToInt(Integer::intValue).sum() + clues.size() - 1;
       int slack = length - minimum;
+      if (slack < 0) {
+         throw new ContradictionException();
+      }
       boolean fullRow = slack == 0;
       Answer answer = new Answer(existing);
       int current = 0;

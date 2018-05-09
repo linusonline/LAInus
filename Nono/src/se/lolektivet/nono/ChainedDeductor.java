@@ -3,13 +3,11 @@ package se.lolektivet.nono;
 import se.lolektivet.nono.model.Clue;
 import se.lolektivet.nono.model.SquareState;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ChainedDeductor {
-   private static class Streak {
+   public static class Streak {
       private final int _startIndex;
       private final int _length;
 
@@ -28,6 +26,21 @@ public class ChainedDeductor {
 
       public int getEnd() {
          return _startIndex + _length;
+      }
+
+      @Override
+      public boolean equals(Object o) {
+         if (this == o) return true;
+         if (o == null || getClass() != o.getClass()) return false;
+         Streak streak = (Streak) o;
+         return _startIndex == streak._startIndex &&
+               _length == streak._length;
+      }
+
+      @Override
+      public int hashCode() {
+
+         return Objects.hash(_startIndex, _length);
       }
    }
 
@@ -74,8 +87,50 @@ public class ChainedDeductor {
       return clues;
    }
 
+   public static List<Clue> fitCluesToStreaks(List<SquareState> line, List<Clue> clues) {
+      List<Streak> streaks = listStreaks(line);
+      Map<Streak, List<Integer>> possibleCluesForStreaks = new HashMap<>(streaks.size());
+      for (Streak streak : streaks) {
+         List<Integer> possibleClues = new ArrayList<>();
+         possibleCluesForStreaks.put(streak, possibleClues);
+         for (int clue = 0; clue < clues.size(); clue++) {
+            if (streakFitsClue(streak, clues.get(clue))) {
+               possibleClues.add(clue);
+            }
+         }
+         if (possibleClues.size() < 1) {
+            throw new ContradictionException();
+         }
+         if (possibleClues.size() == 1) {
+            fitClueToStreak(streak, clues, possibleClues.get(0));
+         }
+         // Take the shortest of the possible clues.
+         // Create a new clue with that size, and limits that just fit the streak
+         // Fit that clue to the gap where the streak is.
+         // Reapply the clue to the line (fill in overlap btw earliest and latest.
+         //    5, 3 [     . X       ] -> [     . XX      ]
+      }
+
+      return clues;
+   }
+
+   private static void fitClueToStreak(Streak streak, List<Clue> clues, int clueIndex) {
+      Clue clue = clues.get(clueIndex);
+      int offsetRight = Math.max(0, streak._startIndex + streak._length - clue.earliestEnd);
+      pushClueToRight(clues, clueIndex, offsetRight);
+      int offsetLeft = Math.max(0, clue.latestStart - streak._startIndex);
+      pullCluesToLeft(clues, clueIndex, offsetLeft);
+   }
+
+   public static boolean streakFitsClue(Streak streak, Clue clue) {
+      return streak._length <= clue.value &&
+            clue.earliestStart <= streak._startIndex &&
+            streak._startIndex + streak._length <= clue.latestEnd;
+   }
+
    // TODO: Look for streaks that can only fit to a single clue (fit: earliest start < streak start, streak end < latest end, streak length <= length)
    // TODO: When considering whether a clue fits a streak, need also combine the streak in question with all other streaks that are known to ONLY fit the clue in question.
+   //    3, 3 [  X XX    ] -> [XXX.XXX....]
    // TODO: How to solve this?
    //    3, 3 [     XX XX     ] -> [....XXX.XXX....]
    //    3, 3 [     XX  XX    ] -> [.... XX  XX ...]
@@ -175,6 +230,17 @@ public class ChainedDeductor {
       }
    }
 
+   private static void pullCluesToLeft(List<Clue> clues, int clueIndex, int pull) {
+      clues.get(clueIndex).latestStart -= pull;
+      clues.get(clueIndex).latestEnd -= pull;
+      if (clueIndex > 0) {
+         int separation = clues.get(clueIndex).latestStart - clues.get(clueIndex - 1).latestEnd;
+         if (separation < 1) {
+            pullCluesToLeft(clues, clueIndex - 1, 1 - separation);
+         }
+      }
+   }
+
    private static void setLatestStartForClue(Clue clue, int latestStart) {
       if (latestStart > clue.latestStart) {
          throw new ContradictionException();
@@ -183,7 +249,7 @@ public class ChainedDeductor {
       clue.latestEnd = latestStart + clue.value;
    }
 
-   private static List<Streak> listStreaks(List<SquareState> line) {
+   public static List<Streak> listStreaks(List<SquareState> line) {
       List<Streak> streaks = new ArrayList<>();
 
       boolean isInStreak = false;
@@ -201,7 +267,11 @@ public class ChainedDeductor {
          } else if (isInStreak) {
             streaks.add(new Streak(streakStart, streakLength));
             isInStreak = false;
+            streakLength = 0;
          }
+      }
+      if (isInStreak) {
+         streaks.add(new Streak(streakStart, streakLength));
       }
       return streaks;
    }

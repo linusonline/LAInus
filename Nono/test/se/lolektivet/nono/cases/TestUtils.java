@@ -5,11 +5,16 @@ import se.lolektivet.nono.ChainedDeductor;
 import se.lolektivet.nono.Deduction;
 import se.lolektivet.nono.model.SquareState;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
 public class TestUtils {
+
+   public static void testChainedDeduction(ChainedDeduction deduction, String testType, int testCase) {
+      testDeductionChain(Arrays.asList(deduction), testType, testCase);
+   }
 
    public static void testDeductionChain(List<ChainedDeduction> chain, String testType, int testCase) {
 

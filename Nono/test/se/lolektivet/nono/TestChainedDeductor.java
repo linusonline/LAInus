@@ -2,12 +2,14 @@ package se.lolektivet.nono;
 
 import org.junit.Test;
 import se.lolektivet.nono.model.Clue;
+import se.lolektivet.nono.model.SquareState;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class TestChainedDeductor {
 
@@ -51,4 +53,17 @@ public class TestChainedDeductor {
       assertEquals(expected, answer);
    }
 
+   @Test
+   public void testStreakFitsClue0() {
+      ChainedDeductor.Streak streak = new ChainedDeductor.Streak(0, 1);
+      Clue clue = new Clue(1, 0, 1);
+      assertTrue(ChainedDeductor.streakFitsClue(streak, clue));
+   }
+
+   @Test
+   public void testListStreaks() {
+      List<ChainedDeductor.Streak> answer = ChainedDeductor.listStreaks(Arrays.asList(SquareState.UNKNOW, SquareState.FILLED, SquareState.UNKNOW, SquareState.FILLED, SquareState.UNKNOW));
+      List<ChainedDeductor.Streak> expected = Arrays.asList(new ChainedDeductor.Streak(1, 1), new ChainedDeductor.Streak(3, 1));
+      assertEquals(expected, answer);
+   }
 }
