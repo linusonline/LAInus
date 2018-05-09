@@ -127,33 +127,7 @@ public class Deductions {
       return answer.get();
    }
 
-   @Deprecated
-   public static List<SquareState> fitCluesToGaps(List<SquareState> existing, List<Integer> numbers) {
-      return applyDeductionInBothDirections(Deductions::fitCluesToGapsOnce, existing, numbers);
-   }
 
-   @Deprecated
-   public static List<SquareState> fitCluesToGapsOnce(List<SquareState> existing, List<Integer> numbers) {
-      List<Clue> clues = ChainedDeductions.createClues(numbers, existing.size());
-
-      int gapStart = 0;
-
-      for (int clueNr = 0; clueNr < clues.size(); clueNr++) {
-         int firstFit = ChainedDeductions.findFirstFit(clues.get(clueNr).value, existing, gapStart);
-         int offset = firstFit - gapStart;
-
-         ChainedDeductions.pushClueToRight(clues, clueNr, offset, existing.size());
-
-         if (clues.get(clueNr).earliestEnd < existing.size() && existing.get(clues.get(clueNr).earliestEnd).isFilled()) {
-            offset++;
-            ChainedDeductions.pushClueToRight(clues, clueNr, 1, existing.size());
-         }
-
-         gapStart += offset + clues.get(clueNr).value + 1;
-      }
-
-      return cluesToAnswer(clues, existing).get();
-   }
 
    public static List<SquareState> repeatDeduction(Deduction deduction, List<SquareState> existing, List<Integer> numbers) {
       long before;

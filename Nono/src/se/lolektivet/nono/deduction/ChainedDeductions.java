@@ -46,11 +46,7 @@ public class ChainedDeductions {
    public static List<Clue> fitCluesToGapsRight(List<SquareState> line, List<Clue> clues) {
 
       for (int clueNr = 0; clueNr < clues.size(); clueNr++) {
-         int gapStart = clues.get(clueNr).earliestStart;
-         int firstFit = findFirstFit(clues.get(clueNr).value, line, gapStart);
-         int offset = firstFit - gapStart;
-
-         pushClueToRight(clues, clueNr, offset, line.size());
+         fitOneClueToGapRight(line, clues, clueNr);
       }
 
       return clues;
@@ -59,11 +55,7 @@ public class ChainedDeductions {
    public static List<Clue> fitCluesToGapsLeft(List<SquareState> line, List<Clue> clues) {
 
       for (int clueNr = clues.size(); clueNr > 0; clueNr--) {
-         int gapStart = clues.get(clueNr - 1).latestEnd;
-         int firstFit = findFirstFitLeft(clues.get(clueNr - 1).value, line, gapStart);
-         int offset = gapStart - firstFit;
-
-         pullClueToLeft(clues, clueNr - 1, offset);
+         fitOneClueToGapLeft(line, clues, clueNr);
       }
 
       return clues;
@@ -76,26 +68,14 @@ public class ChainedDeductions {
 
    public static List<Clue> fitCluesToStreaksRight(List<SquareState> line, List<Clue> clues) {
       for (int clueNr = 0; clueNr < clues.size(); clueNr++) {
-
-         int earliestEnd = clues.get(clueNr).earliestEnd;
-         while (earliestEnd < line.size() && line.get(earliestEnd).isFilled()) {
-            earliestEnd++;
-         }
-         int push = earliestEnd - clues.get(clueNr).earliestEnd;
-         pushClueToRight(clues, clueNr, push, line.size());
+         fitOneClueToStreakRight(line, clues, clueNr);
       }
       return clues;
    }
 
    public static List<Clue> fitCluesToStreaksLeft(List<SquareState> line, List<Clue> clues) {
       for (int clueNr = clues.size(); clueNr > 0; clueNr--) {
-
-         int latestStart = clues.get(clueNr - 1).latestStart;
-         while (latestStart > 0 && line.get(latestStart - 1).isFilled()) {
-            latestStart--;
-         }
-         int pull = clues.get(clueNr - 1).latestStart - latestStart;
-         pullClueToLeft(clues, clueNr - 1, pull);
+         fitOneClueToStreakLeft(line, clues, clueNr);
       }
       return clues;
    }
@@ -132,7 +112,66 @@ public class ChainedDeductions {
       return clues;
    }
 
+   public static List<Clue> fitCluesToGapsAndStreaksRight(List<SquareState> line, List<Clue> clues) {
 
+      for (int clueNr = 0; clueNr < clues.size(); clueNr++) {
+         fitOneClueToGapRight(line, clues, clueNr);
+         fitOneClueToStreakRight(line, clues, clueNr);
+      }
+
+      return clues;
+   }
+
+   public static List<Clue> fitCluesToGapsAndStreaksLeft(List<SquareState> line, List<Clue> clues) {
+
+      for (int clueNr = clues.size(); clueNr > 0; clueNr--) {
+         fitOneClueToGapLeft(line, clues, clueNr);
+         fitOneClueToStreakLeft(line, clues, clueNr);
+      }
+
+      return clues;
+   }
+
+   public static List<Clue> fitCluesToGapsAndStreaksBoth(List<SquareState> line, List<Clue> clues) {
+      fitCluesToGapsAndStreaksRight(line, clues);
+      return fitCluesToGapsAndStreaksLeft(line, clues);
+   }
+
+
+
+   private static void fitOneClueToStreakRight(List<SquareState> line, List<Clue> clues, int clueNr) {
+      int earliestEnd = clues.get(clueNr).earliestEnd;
+      while (earliestEnd < line.size() && line.get(earliestEnd).isFilled()) {
+         earliestEnd++;
+      }
+      int push = earliestEnd - clues.get(clueNr).earliestEnd;
+      pushClueToRight(clues, clueNr, push, line.size());
+   }
+
+   private static void fitOneClueToGapRight(List<SquareState> line, List<Clue> clues, int clueNr) {
+      int gapStart = clues.get(clueNr).earliestStart;
+      int firstFit = findFirstFit(clues.get(clueNr).value, line, gapStart);
+      int offset = firstFit - gapStart;
+
+      pushClueToRight(clues, clueNr, offset, line.size());
+   }
+
+   private static void fitOneClueToGapLeft(List<SquareState> line, List<Clue> clues, int clueNr) {
+      int gapStart = clues.get(clueNr - 1).latestEnd;
+      int firstFit = findFirstFitLeft(clues.get(clueNr - 1).value, line, gapStart);
+      int offset = gapStart - firstFit;
+
+      pullClueToLeft(clues, clueNr - 1, offset);
+   }
+
+   private static void fitOneClueToStreakLeft(List<SquareState> line, List<Clue> clues, int clueNr) {
+      int latestStart = clues.get(clueNr - 1).latestStart;
+      while (latestStart > 0 && line.get(latestStart - 1).isFilled()) {
+         latestStart--;
+      }
+      int pull = clues.get(clueNr - 1).latestStart - latestStart;
+      pullClueToLeft(clues, clueNr - 1, pull);
+   }
 
    public static List<Clue> createClues(List<Integer> numberClues, int lineLength) {
       List<Clue> clues = new ArrayList<>();

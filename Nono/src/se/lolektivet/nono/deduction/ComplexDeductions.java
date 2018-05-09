@@ -35,11 +35,15 @@ public class ComplexDeductions {
       return applyChainedDeductionAsSimple(ChainedDeductions::fitCluesToStreaksBoth, line, clues);
    }
 
+   public static List<SquareState> fitCluesToGapsAndStreaksBoth(List<SquareState> line, List<Integer> clues) {
+      return applyChainedDeductionAsSimple(ChainedDeductions::fitCluesToGapsAndStreaksBoth, line, clues);
+   }
+
    public static List<SquareState> fitCluesToStreaksAdvanced(List<SquareState> line, List<Integer> clues) {
       return applyChainedDeductionAsSimple(ChainedDeductions::fitCluesToStreaksAdvanced, line, clues);
    }
 
-   public static List<SquareState> fitToGapsAndStreaksRepeated(List<SquareState> line, List<Integer> clues) {
+   public static List<SquareState> fitToStreaksAndGapsAdvancedRepeated(List<SquareState> line, List<Integer> clues) {
       List<Clue> workingClues = ChainedDeductions.createClues(clues, line.size());
 
       List<ChainedDeduction> chain = Arrays.asList(
@@ -49,19 +53,6 @@ public class ComplexDeductions {
       applyDeductionChainRepeated(chain, line, workingClues);
 
       return Deductions.cluesToAnswer(workingClues, line).get();
-   }
-
-   public static List<SquareState> sillyDeduction(List<SquareState> line, List<Integer> clueNumbers) {
-      List<Clue> clues = ChainedDeductions.createClues(clueNumbers, line.size());
-
-      List<ChainedDeduction> chain = new ArrayList<>(2);
-      chain.add(ChainedDeductions::fitCluesToGapsRight);
-      chain.add(ChainedDeductions::fitCluesToStreaksRight);
-
-      applyDeductionChain(chain, line, clues);
-      applyDeductionChainRightToLeft(chain, line, clues);
-
-      return Deductions.cluesToAnswer(clues, line).get();
    }
 
 
@@ -88,10 +79,6 @@ public class ComplexDeductions {
          deduction.apply(line, clues);
       }
       return clues;
-   }
-
-   public static List<Clue> copyClues(List<Clue> clues) {
-      return clues.stream().map(Clue::new).collect(Collectors.toList());
    }
 
    public static List<Clue> applyDeductionChainRepeated(List<ChainedDeduction> chain, List<SquareState> line, List<Clue> clues) {
@@ -154,6 +141,10 @@ public class ComplexDeductions {
 
    public static Clue getReverseClue(Clue clue, int lineLength) {
       return new Clue(clue.value, lineLength - clue.latestEnd, lineLength - clue.earliestEnd);
+   }
+
+   public static List<Clue> copyClues(List<Clue> clues) {
+      return clues.stream().map(Clue::new).collect(Collectors.toList());
    }
 
 }

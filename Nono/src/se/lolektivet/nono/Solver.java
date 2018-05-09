@@ -38,7 +38,7 @@ public class Solver {
             fillInShortestClueFromEdges();
          } while (innerCounter.get() > 0);
 
-         fitToStreaksAndGapsRepeated();
+         fitToStreaksAndGapsAdvancedRepeated();
 
       } while (outerCounter.get() > 0);
 
@@ -119,17 +119,9 @@ public class Solver {
       return this;
    }
 
-   @Deprecated
-   public Solver fitCluesToGaps() {
+   public Solver fitToStreaksAndGapsAdvancedRepeated() {
       int previouslyKnownSquares = _solution.getKnownSquares();
-      applyDeductionToAllLines(Deductions::fitCluesToGaps);
-      addProgress(_solution.getKnownSquares() - previouslyKnownSquares);
-      return this;
-   }
-
-   public Solver fitToStreaksAndGapsRepeated() {
-      int previouslyKnownSquares = _solution.getKnownSquares();
-      applyDeductionToAllLines(ComplexDeductions::fitToGapsAndStreaksRepeated);
+      applyDeductionToAllLines(ComplexDeductions::fitToStreaksAndGapsAdvancedRepeated);
       addProgress(_solution.getKnownSquares() - previouslyKnownSquares);
       return this;
 

@@ -463,10 +463,9 @@ public class TestDeductions {
       deductions.add(new NamedDeduction(Deductions::fillRestIfCompletelyCrossed, "fillRestIfCompletelyCrossed"));
       deductions.add(new NamedDeduction(ComplexDeductions::fitCluesToGapsBoth, "fitCluesToGapsBoth"));
       deductions.add(new NamedDeduction(ComplexDeductions::fitCluesToStreaksBoth, "fitCluesToStreaksBoth"));
+      deductions.add(new NamedDeduction(ComplexDeductions::fitCluesToGapsAndStreaksBoth, "fitCluesToGapsAndStreaksBoth"));
       deductions.add(new NamedDeduction(ComplexDeductions::fitCluesToStreaksAdvanced, "fitCluesToStreaksAdvanced"));
-      deductions.add(new NamedDeduction(ComplexDeductions::fitToGapsAndStreaksRepeated, "fitToStreaksAndGapsRepeated"));
-      deductions.add(new NamedDeduction(ComplexDeductions::sillyDeduction, "sillyDeduction"));
-      deductions.add(new NamedDeduction(Deductions::fitCluesToGaps, "fitCluesToGapsOld"));
+      deductions.add(new NamedDeduction(ComplexDeductions::fitToStreaksAndGapsAdvancedRepeated, "fitToStreaksAndGapsAdvancedRepeated"));
 
       return deductions.stream();
    }
