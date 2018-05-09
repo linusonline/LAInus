@@ -290,4 +290,27 @@ public class ChainedDeductor {
       }
       return clues;
    }
+
+   public static List<SquareState> fitToGapsAndStreaksRepeated(List<SquareState> line, List<Integer> clues) {
+      List<Clue> workingClues = ChainedDeductor.createClues(clues, line.size());
+
+      List<ChainedDeduction> chain = Arrays.asList(ChainedDeductor::fitCluesToStreaks, (aLine, someClues) -> applyDeductionInBothDirections(ChainedDeductor::fitCluesToGapsOnce, aLine, someClues));
+      applyDeductionChainRepeated(chain, line, workingClues);
+
+      return Deductor.cluesToAnswer(workingClues, line).get();
+   }
+
+   public static List<Clue> applyDeductionChainRepeated(List<ChainedDeduction> chain, List<SquareState> line, List<Clue> clues) {
+      List<Clue> oldClues;
+      int deduction = 0;
+      do {
+         oldClues = new ArrayList<>(clues);
+         chain.get(deduction).apply(line, clues);
+         if (++deduction >= chain.size()) {
+            deduction = 0;
+         }
+      } while (!oldClues.equals(clues));
+
+      return clues;
+   }
 }

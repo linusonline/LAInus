@@ -35,6 +35,7 @@ public class Solver {
          } while (innerCounter.get() > 0);
 
          fitCluesToGaps();
+         fitToGapsAndStreaksRepeated();
 
       } while (outerCounter.get() > 0);
 
@@ -120,6 +121,14 @@ public class Solver {
       applyDeductionToAllLines(Deductor::fitCluesToGaps);
       addProgress(_solution.getKnownSquares() - previouslyKnownSquares);
       return this;
+   }
+
+   public Solver fitToGapsAndStreaksRepeated() {
+      int previouslyKnownSquares = _solution.getKnownSquares();
+      applyDeductionToAllLines(ChainedDeductor::fitToGapsAndStreaksRepeated);
+      addProgress(_solution.getKnownSquares() - previouslyKnownSquares);
+      return this;
+
    }
 
    private Solver applyDeductionToAllLines(Deduction deduction) {
