@@ -401,5 +401,13 @@ public class Cases {
       testCase(HARD, Arrays.asList(5, 5),
             "         XX  XX  X      ",
             "...... XXXX  XXXXX......");
+
+      testCase(HARD, Arrays.asList(2, 5, 4, 3, 1, 1, 3, 1, 2),
+            "    XX                 X  X        ",
+            " X  XXXX    X          X  X        ");
+
+      testCase(HARD, Arrays.asList(1, 1, 1, 3, 1, 6, 1, 1, 4),
+            "        X            XX  X         ",
+            "        X           XXX  X     X   ");
    }
 }

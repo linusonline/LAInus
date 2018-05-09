@@ -142,11 +142,11 @@ public class Deductions {
          int firstFit = ChainedDeductions.findFirstFit(clues.get(clueNr).value, existing, gapStart);
          int offset = firstFit - gapStart;
 
-         ChainedDeductions.offsetCluesToRight(clues, clueNr, offset);
+         ChainedDeductions.pushClueToRight(clues, clueNr, offset, existing.size());
 
          if (clues.get(clueNr).earliestEnd < existing.size() && existing.get(clues.get(clueNr).earliestEnd).isFilled()) {
             offset++;
-            ChainedDeductions.offsetCluesToRight(clues, clueNr, 1);
+            ChainedDeductions.pushClueToRight(clues, clueNr, 1, existing.size());
          }
 
          gapStart += offset + clues.get(clueNr).value + 1;

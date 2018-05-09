@@ -10,6 +10,10 @@ public class Clue {
    public int earliestEnd;
    public int latestEnd;
 
+   public Clue(Clue other) {
+      this(other.value, other.earliestStart, other.latestStart);
+   }
+
    public Clue(int value, int earliestStart, int latestStart) {
       this.value = value;
       this.earliestStart = earliestStart;

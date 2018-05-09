@@ -410,6 +410,18 @@ public class TestDeductions {
       testDeduction(deduction, Cases.HARD, 6);
    }
 
+   @ParameterizedTest
+   @MethodSource("deductionProvider")
+   public void testHardProblem7 (NamedDeduction deduction) {
+      testDeduction(deduction, Cases.HARD, 7);
+   }
+
+   @ParameterizedTest
+   @MethodSource("deductionProvider")
+   public void testHardProblem8 (NamedDeduction deduction) {
+      testDeduction(deduction, Cases.HARD, 8);
+   }
+
 
 
    private void testDeduction(NamedDeduction deduction, String testType, int testCase) {
@@ -452,8 +464,9 @@ public class TestDeductions {
       deductions.add(new NamedDeduction(ComplexDeductions::fitCluesToGapsBoth, "fitCluesToGapsBoth"));
       deductions.add(new NamedDeduction(ComplexDeductions::fitCluesToStreaksBoth, "fitCluesToStreaksBoth"));
       deductions.add(new NamedDeduction(ComplexDeductions::fitCluesToStreaksAdvanced, "fitCluesToStreaksAdvanced"));
-      deductions.add(new NamedDeduction(ComplexDeductions::fitToGapsAndStreaksRepeated, "fitToGapsAndStreaksRepeated"));
+      deductions.add(new NamedDeduction(ComplexDeductions::fitToGapsAndStreaksRepeated, "fitToStreaksAndGapsRepeated"));
       deductions.add(new NamedDeduction(ComplexDeductions::sillyDeduction, "sillyDeduction"));
+      deductions.add(new NamedDeduction(Deductions::fitCluesToGaps, "fitCluesToGapsOld"));
 
       return deductions.stream();
    }

@@ -144,4 +144,17 @@ public class TestChainedDeductions {
       List<ChainedDeductions.Streak> expected = Arrays.asList(new ChainedDeductions.Streak(1, 1), new ChainedDeductions.Streak(3, 1));
       assertEquals(expected, answer);
    }
+
+   @Test
+   public void testCopyClues() {
+      Clue clue = new Clue(1, 0, 1);
+      List<Clue> clues = Collections.singletonList(clue);
+      List<Clue> copy = ComplexDeductions.copyClues(clues);
+      clue.earliestStart = 1;
+      assertEquals(1, clues.get(0).earliestStart);
+      assertEquals(0, copy.get(0).earliestStart);
+      assertNotEquals(clues, copy);
+      clue.earliestStart = 0;
+      assertEquals(clues, copy);
+   }
 }

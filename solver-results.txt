@@ -12,7 +12,7 @@
                        X  X
      X                 X  X
      X                 X  X
-    XX                 X  X
+ X  XXXX    X          X  X
     X
 
 
@@ -21,7 +21,7 @@
       X                  X
       X              X   X
         X            X   X
-        X           XXX  X     X
+        X           XXX  X     XX
                      XX  X
                      XX  X
                          X
@@ -84,7 +84,7 @@ XXXXXXXX..XXXXXXX.........XXX......
 --------------------
 
 
-
+        X
 
   XXX            X .
 

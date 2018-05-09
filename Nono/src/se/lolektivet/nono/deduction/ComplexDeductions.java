@@ -42,7 +42,10 @@ public class ComplexDeductions {
    public static List<SquareState> fitToGapsAndStreaksRepeated(List<SquareState> line, List<Integer> clues) {
       List<Clue> workingClues = ChainedDeductions.createClues(clues, line.size());
 
-      List<ChainedDeduction> chain = Arrays.asList(ChainedDeductions::fitCluesToStreaksAdvanced, (aLine, someClues) -> applyDeductionInBothDirections(ChainedDeductions::fitCluesToGapsRight, aLine, someClues));
+      List<ChainedDeduction> chain = Arrays.asList(
+            ChainedDeductions::fitCluesToStreaksBoth,
+            ChainedDeductions::fitCluesToStreaksAdvanced,
+            ChainedDeductions::fitCluesToGapsBoth);
       applyDeductionChainRepeated(chain, line, workingClues);
 
       return Deductions.cluesToAnswer(workingClues, line).get();
@@ -87,14 +90,17 @@ public class ComplexDeductions {
       return clues;
    }
 
+   public static List<Clue> copyClues(List<Clue> clues) {
+      return clues.stream().map(Clue::new).collect(Collectors.toList());
+   }
+
    public static List<Clue> applyDeductionChainRepeated(List<ChainedDeduction> chain, List<SquareState> line, List<Clue> clues) {
       List<Clue> oldClues;
-      int deduction = 0;
       do {
-         oldClues = new ArrayList<>(clues);
-         chain.get(deduction).apply(line, clues);
-         if (++deduction >= chain.size()) {
-            deduction = 0;
+         oldClues = copyClues(clues);
+
+         for (ChainedDeduction chainedDeduction : chain) {
+            chainedDeduction.apply(line, clues);
          }
       } while (!oldClues.equals(clues));
 

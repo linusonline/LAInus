@@ -206,7 +206,7 @@ public class ChainedDeductions {
       }
    }
 
-   private static void pushClueToRight(List<Clue> clues, int clueIndex, int push, int lineLength) {
+   public static void pushClueToRight(List<Clue> clues, int clueIndex, int push, int lineLength) {
       clues.get(clueIndex).earliestStart += push;
       clues.get(clueIndex).earliestEnd += push;
       if (clueIndex + 1 < clues.size()) {
