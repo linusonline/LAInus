@@ -1,5 +1,9 @@
 package se.lolektivet.nono;
 
+import se.lolektivet.nono.deduction.ChainedDeductions;
+import se.lolektivet.nono.deduction.ComplexDeductions;
+import se.lolektivet.nono.deduction.Deduction;
+import se.lolektivet.nono.deduction.Deductions;
 import se.lolektivet.nono.model.Clue;
 import se.lolektivet.nono.model.Problem;
 import se.lolektivet.nono.model.Solution;
@@ -69,10 +73,10 @@ public class Solver {
 
    private void createClues() {
       for (List<Integer> row : _problem.rows()) {
-         _rowClues.add(ChainedDeductor.createClues(row, _problem.height()));
+         _rowClues.add(ChainedDeductions.createClues(row, _problem.height()));
       }
       for (List<Integer> column : _problem.columns()) {
-         _columnClues.add(ChainedDeductor.createClues(column, _problem.width()));
+         _columnClues.add(ChainedDeductions.createClues(column, _problem.width()));
       }
    }
 
@@ -83,49 +87,50 @@ public class Solver {
    public Solver startingDeduction() {
       int previouslyKnownSquares = _solution.getKnownSquares();
 
-      applyDeductionToAllLines(Deductor::startingDeduction);
+      applyDeductionToAllLines(Deductions::startingDeduction);
       addProgress(_solution.getKnownSquares() - previouslyKnownSquares);
       return this;
    }
 
    public Solver crossRestInCompleteRows() {
       int previouslyKnownSquares = _solution.getKnownSquares();
-      applyDeductionToAllLines(Deductor::crossRestIfComplete);
+      applyDeductionToAllLines(Deductions::crossRestIfComplete);
       addProgress(_solution.getKnownSquares() - previouslyKnownSquares);
       return this;
    }
 
    public Solver fillInShortestClueFromEdges() {
       int previouslyKnownSquares = _solution.getKnownSquares();
-      applyDeductionToAllLines(Deductor::fillInShortestClueFromEdges);
+      applyDeductionToAllLines(Deductions::fillInShortestClueFromEdges);
       addProgress(_solution.getKnownSquares() - previouslyKnownSquares);
       return this;
    }
 
    public Solver crossShortGaps() {
       int previouslyKnownSquares = _solution.getKnownSquares();
-      applyDeductionToAllLines(Deductor::crossShortGaps);
+      applyDeductionToAllLines(Deductions::crossShortGaps);
       addProgress(_solution.getKnownSquares() - previouslyKnownSquares);
       return this;
    }
 
    public Solver fillRestInCompletelyCrossedRows() {
       int previouslyKnownSquares = _solution.getKnownSquares();
-      applyDeductionToAllLines(Deductor::fillRestIfCompletelyCrossed);
+      applyDeductionToAllLines(Deductions::fillRestIfCompletelyCrossed);
       addProgress(_solution.getKnownSquares() - previouslyKnownSquares);
       return this;
    }
 
+   @Deprecated
    public Solver fitCluesToGaps() {
       int previouslyKnownSquares = _solution.getKnownSquares();
-      applyDeductionToAllLines(Deductor::fitCluesToGaps);
+      applyDeductionToAllLines(Deductions::fitCluesToGaps);
       addProgress(_solution.getKnownSquares() - previouslyKnownSquares);
       return this;
    }
 
    public Solver fitToGapsAndStreaksRepeated() {
       int previouslyKnownSquares = _solution.getKnownSquares();
-      applyDeductionToAllLines(ChainedDeductor::fitToGapsAndStreaksRepeated);
+      applyDeductionToAllLines(ComplexDeductions::fitToGapsAndStreaksRepeated);
       addProgress(_solution.getKnownSquares() - previouslyKnownSquares);
       return this;
 
@@ -148,7 +153,7 @@ public class Solver {
    }
 
    public void repeatDeductionOnRow(int row, Deduction deduction) {
-      List<SquareState> answer = Deductor.repeatDeduction(deduction, _solution.getRow(row), _problem.row(row));
+      List<SquareState> answer = Deductions.repeatDeduction(deduction, _solution.getRow(row), _problem.row(row));
       mergeLineToRow(answer, row);
    }
 

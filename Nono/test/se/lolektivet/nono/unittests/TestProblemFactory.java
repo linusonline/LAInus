@@ -1,6 +1,6 @@
 package se.lolektivet.nono.unittests;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import se.lolektivet.nono.Util;
 import se.lolektivet.nono.model.Problem;
 import se.lolektivet.nono.model.ProblemFactory;
@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestProblemFactory {
 

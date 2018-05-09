@@ -1,11 +1,11 @@
 package se.lolektivet.nono.solvers;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import se.lolektivet.nono.Solver;
 import se.lolektivet.nono.cases.Puzzles;
 import se.lolektivet.nono.model.Solution;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestSolver {
 
