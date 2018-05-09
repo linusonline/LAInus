@@ -1,4 +1,4 @@
-package se.lolektivet.nono;
+package se.lolektivet.nono.unittests;
 
 import org.junit.Test;
 import se.lolektivet.nono.model.Solution;

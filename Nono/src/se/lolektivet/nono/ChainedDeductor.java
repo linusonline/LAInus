@@ -200,7 +200,7 @@ public class ChainedDeductor {
       return new Clue(clue.value, lineLength - clue.latestEnd, lineLength - clue.earliestEnd);
    }
 
-   static int findFirstFit(int clue, List<SquareState> existing, int start) {
+   public static int findFirstFit(int clue, List<SquareState> existing, int start) {
       for (int i = start; i < start + clue; i++) {
          if (i >= existing.size()) {
             throw new ContradictionException();

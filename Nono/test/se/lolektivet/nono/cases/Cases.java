@@ -61,17 +61,17 @@ public class Cases {
 
       // Trivial elimination
 
-      clues = Arrays.asList();
+      clues = Arrays.asList(0);
       problem  = Util.stringToLine(" ");
       solution = Util.stringToLine(".");
       add(TRIV_ELIM, clues, problem, solution);
 
-      clues = Arrays.asList();
+      clues = Arrays.asList(0);
       problem  = Util.stringToLine(". .");
       solution = Util.stringToLine("...");
       add(TRIV_ELIM, clues, problem, solution);
 
-      clues = Arrays.asList();
+      clues = Arrays.asList(0);
       problem  = Util.stringToLine("   ");
       solution = Util.stringToLine("...");
       add(TRIV_ELIM, clues, problem, solution);

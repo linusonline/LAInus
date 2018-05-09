@@ -1,4 +1,4 @@
-package se.lolektivet.nono;
+package se.lolektivet.nono.cases;
 
 import se.lolektivet.nono.model.Problem;
 import se.lolektivet.nono.model.ProblemFactory;

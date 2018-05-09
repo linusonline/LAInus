@@ -1,6 +1,8 @@
-package se.lolektivet.nono;
+package se.lolektivet.nono.unittests;
 
 import org.junit.Test;
+import se.lolektivet.nono.ChainedDeductor;
+import se.lolektivet.nono.ContradictionException;
 import se.lolektivet.nono.model.Clue;
 import se.lolektivet.nono.model.SquareState;
 
@@ -10,8 +12,62 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static se.lolektivet.nono.model.SquareState.STRIKE;
+import static se.lolektivet.nono.model.SquareState.UNKNOW;
 
 public class TestChainedDeductor {
+
+   @Test
+   public void testFirstFit1() {
+      int firstFit = ChainedDeductor.findFirstFit(2, Arrays.asList(UNKNOW, UNKNOW), 0);
+      assertEquals(0, firstFit);
+   }
+
+   @Test (expected = ContradictionException.class)
+   public void testFirstFit2() {
+      ChainedDeductor.findFirstFit(2, Arrays.asList(UNKNOW), 0);
+   }
+
+   @Test (expected = ContradictionException.class)
+   public void testFirstFit7() {
+      ChainedDeductor.findFirstFit(2, Arrays.asList(STRIKE, UNKNOW, STRIKE), 0);
+   }
+
+   @Test
+   public void testFirstFit3() {
+      int firstFit = ChainedDeductor.findFirstFit(1,
+            Arrays.asList(STRIKE, UNKNOW),
+            0);
+      assertEquals(1, firstFit);
+   }
+
+   @Test (expected = ContradictionException.class)
+   public void testFirstFit4() {
+      ChainedDeductor.findFirstFit(1, Arrays.asList(STRIKE, STRIKE), 0);
+   }
+
+   @Test
+   public void testFirstFit5() {
+      int firstFit = ChainedDeductor.findFirstFit(2,
+            Arrays.asList(UNKNOW, STRIKE, UNKNOW, STRIKE, UNKNOW, UNKNOW),
+            0);
+      assertEquals(4, firstFit);
+   }
+
+   @Test (expected = ContradictionException.class)
+   public void testFirstFit6() {
+      ChainedDeductor.findFirstFit(2,
+            Arrays.asList(UNKNOW, STRIKE, UNKNOW),
+            0);
+   }
+
+   @Test
+   public void testFirstFit8() {
+      int firstFit = ChainedDeductor.findFirstFit(3,
+            Arrays.asList(UNKNOW, UNKNOW, STRIKE, UNKNOW, UNKNOW, UNKNOW),
+            0);
+      assertEquals(3, firstFit);
+   }
 
    @Test
    public void testCreateClues0() {

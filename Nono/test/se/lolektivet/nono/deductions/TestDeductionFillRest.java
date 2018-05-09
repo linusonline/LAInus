@@ -1,339 +1,343 @@
-package se.lolektivet.nono.deduction;
+package se.lolektivet.nono.deductions;
 
 import org.junit.Test;
 import se.lolektivet.nono.Deductor;
 import se.lolektivet.nono.cases.Cases;
 import se.lolektivet.nono.cases.TestUtils;
 
-public class TestTrivialDeduction {
-
+public class TestDeductionFillRest {
    @Test
    public void testTrivialElimination0() {
-      testTrivialDeduction(Cases.TRIV_ELIM, 0);
+      testFillRestIfComplete(Cases.TRIV_ELIM, 0);
    }
 
    @Test
    public void testTrivialElimination1() {
-      testTrivialDeduction(Cases.TRIV_ELIM, 1);
+      testFillRestIfComplete(Cases.TRIV_ELIM, 1);
    }
 
    @Test
    public void testTrivialElimination2() {
-      testTrivialDeduction(Cases.TRIV_ELIM, 2);
+      testFillRestIfComplete(Cases.TRIV_ELIM, 2);
    }
 
    @Test
    public void testTrivialElimination3() {
-      testTrivialDeduction(Cases.TRIV_ELIM, 3);
+      testFillRestIfComplete(Cases.TRIV_ELIM, 3);
    }
 
    @Test
    public void testTrivialElimination4() {
-      testTrivialDeduction(Cases.TRIV_ELIM, 4);
+      testFillRestIfComplete(Cases.TRIV_ELIM, 4);
    }
 
    @Test
    public void testTrivialElimination5() {
-      testTrivialDeduction(Cases.TRIV_ELIM, 5);
+      testFillRestIfComplete(Cases.TRIV_ELIM, 5);
    }
 
    @Test
    public void testTrivialElimination6() {
-      testTrivialDeduction(Cases.TRIV_ELIM, 6);
+      testFillRestIfComplete(Cases.TRIV_ELIM, 6);
    }
 
 
 
    @Test
    public void testTrivialFillIn0() {
-      testTrivialDeduction(Cases.TRIV_FILL, 0);
+      testFillRestIfComplete(Cases.TRIV_FILL, 0);
    }
 
    @Test
    public void testTrivialFillIn1() {
-      testTrivialDeduction(Cases.TRIV_FILL, 1);
+      testFillRestIfComplete(Cases.TRIV_FILL, 1);
    }
 
    @Test
    public void testTrivialFillIn2() {
-      testTrivialDeduction(Cases.TRIV_FILL, 2);
+      testFillRestIfComplete(Cases.TRIV_FILL, 2);
    }
 
    @Test
    public void testTrivialFillIn3() {
-      testTrivialDeduction(Cases.TRIV_FILL, 3);
+      testFillRestIfComplete(Cases.TRIV_FILL, 3);
    }
 
    @Test
    public void testTrivialFillIn4() {
-      testTrivialDeduction(Cases.TRIV_FILL, 4);
+      testFillRestIfComplete(Cases.TRIV_FILL, 4);
    }
 
    @Test
    public void testTrivialFillIn5() {
-      testTrivialDeduction(Cases.TRIV_FILL, 5);
+      testFillRestIfComplete(Cases.TRIV_FILL, 5);
    }
 
    @Test
    public void testTrivialFillIn6() {
-      testTrivialDeduction(Cases.TRIV_FILL, 6);
+      testFillRestIfComplete(Cases.TRIV_FILL, 6);
    }
 
    @Test
    public void testTrivialFillIn7() {
-      testTrivialDeduction(Cases.TRIV_FILL, 7);
+      testFillRestIfComplete(Cases.TRIV_FILL, 7);
    }
 
 
 
    @Test
    public void testElimination0() {
-      testTrivialDeduction(Cases.ELIM, 0);
+      testFillRestIfComplete(Cases.ELIM, 0);
    }
 
    @Test
    public void testElimination1() {
-      testTrivialDeduction(Cases.ELIM, 1);
+      testFillRestIfComplete(Cases.ELIM, 1);
    }
 
    @Test
    public void testElimination2() {
-      testTrivialDeduction(Cases.ELIM, 2);
+      testFillRestIfComplete(Cases.ELIM, 2);
    }
 
    @Test
    public void testElimination3() {
-      testTrivialDeduction(Cases.ELIM, 3);
+      testFillRestIfComplete(Cases.ELIM, 3);
    }
 
    @Test
    public void testElimination4() {
-      testTrivialDeduction(Cases.ELIM, 4);
+      testFillRestIfComplete(Cases.ELIM, 4);
    }
 
    @Test
    public void testElimination5() {
-      testTrivialDeduction(Cases.ELIM, 5);
+      testFillRestIfComplete(Cases.ELIM, 5);
    }
 
    @Test
    public void testElimination6() {
-      testTrivialDeduction(Cases.ELIM, 6);
+      testFillRestIfComplete(Cases.ELIM, 6);
    }
 
    @Test
    public void testElimination7() {
-      testTrivialDeduction(Cases.ELIM, 7);
+      testFillRestIfComplete(Cases.ELIM, 7);
    }
 
    @Test
    public void testElimination8() {
-      testTrivialDeduction(Cases.ELIM, 8);
+      testFillRestIfComplete(Cases.ELIM, 8);
    }
 
    @Test
    public void testElimination9() {
-      testTrivialDeduction(Cases.ELIM, 9);
+      testFillRestIfComplete(Cases.ELIM, 9);
    }
 
    @Test
    public void testElimination10() {
-      testTrivialDeduction(Cases.ELIM, 10);
+      testFillRestIfComplete(Cases.ELIM, 10);
    }
 
    @Test
    public void testElimination11() {
-      testTrivialDeduction(Cases.ELIM, 11);
+      testFillRestIfComplete(Cases.ELIM, 11);
    }
 
    @Test
    public void testElimination12() {
-      testTrivialDeduction(Cases.ELIM, 12);
+      testFillRestIfComplete(Cases.ELIM, 12);
    }
 
 
 
    @Test
    public void testEliminationByStreak0() {
-      testTrivialDeduction(Cases.STREAK_ELIM, 0);
+      testFillRestIfComplete(Cases.STREAK_ELIM, 0);
    }
 
    @Test
    public void testEliminationByStreak1() {
-      testTrivialDeduction(Cases.STREAK_ELIM, 1);
+      testFillRestIfComplete(Cases.STREAK_ELIM, 1);
    }
 
    @Test
    public void testEliminationByStreak2() {
-      testTrivialDeduction(Cases.STREAK_ELIM, 2);
+      testFillRestIfComplete(Cases.STREAK_ELIM, 2);
    }
 
    @Test
    public void testEliminationByStreak3() {
-      testTrivialDeduction(Cases.STREAK_ELIM, 3);
+      testFillRestIfComplete(Cases.STREAK_ELIM, 3);
    }
 
    @Test
    public void testEliminationByStreak4() {
-      testTrivialDeduction(Cases.STREAK_ELIM, 4);
+      testFillRestIfComplete(Cases.STREAK_ELIM, 4);
    }
 
 
 
    @Test
    public void testFillInByStreak0() {
-      testTrivialDeduction(Cases.STREAK_FILL, 0);
+      testFillRestIfComplete(Cases.STREAK_FILL, 0);
    }
 
    @Test
    public void testFillInByStreak1() {
-      testTrivialDeduction(Cases.STREAK_FILL, 1);
+      testFillRestIfComplete(Cases.STREAK_FILL, 1);
+   }
+
+   @Test
+   public void testFillInByStreak2() {
+      testFillRestIfComplete(Cases.STREAK_FILL, 2);
    }
 
 
 
    @Test
    public void testFromScratch0() {
-      testTrivialDeduction(Cases.SCRATCH, 0);
+      testFillRestIfComplete(Cases.SCRATCH, 0);
    }
 
    @Test
    public void testFromScratch1() {
-      testTrivialDeduction(Cases.SCRATCH, 1);
+      testFillRestIfComplete(Cases.SCRATCH, 1);
    }
 
    @Test
    public void testFromScratch2() {
-      testTrivialDeduction(Cases.SCRATCH, 2);
+      testFillRestIfComplete(Cases.SCRATCH, 2);
    }
 
    @Test
    public void testFromScratch3() {
-      testTrivialDeduction(Cases.SCRATCH, 3);
+      testFillRestIfComplete(Cases.SCRATCH, 3);
    }
 
    @Test
    public void testFromScratch4() {
-      testTrivialDeduction(Cases.SCRATCH, 4);
+      testFillRestIfComplete(Cases.SCRATCH, 4);
    }
 
    @Test
    public void testFromScratch5() {
-      testTrivialDeduction(Cases.SCRATCH, 5);
+      testFillRestIfComplete(Cases.SCRATCH, 5);
    }
 
 
 
    @Test
    public void testNullProblems0() {
-      testTrivialDeduction(Cases.FALSE, 0);
+      testFillRestIfComplete(Cases.FALSE, 0);
    }
 
    @Test
    public void testNullProblems1() {
-      testTrivialDeduction(Cases.FALSE, 1);
+      testFillRestIfComplete(Cases.FALSE, 1);
    }
 
    @Test
    public void testNullProblems2() {
-      testTrivialDeduction(Cases.FALSE, 2);
+      testFillRestIfComplete(Cases.FALSE, 2);
    }
 
    @Test
    public void testNullProblems3() {
-      testTrivialDeduction(Cases.FALSE, 3);
+      testFillRestIfComplete(Cases.FALSE, 3);
    }
 
    @Test
    public void testNullProblems4() {
-      testTrivialDeduction(Cases.FALSE, 4);
+      testFillRestIfComplete(Cases.FALSE, 4);
    }
 
    @Test
    public void testNullProblems5() {
-      testTrivialDeduction(Cases.FALSE, 5);
+      testFillRestIfComplete(Cases.FALSE, 5);
    }
 
    @Test
    public void testNullProblems6() {
-      testTrivialDeduction(Cases.FALSE, 6);
+      testFillRestIfComplete(Cases.FALSE, 6);
    }
 
 
 
    @Test
    public void testMisc0() {
-      testTrivialDeduction(Cases.MISC, 0);
+      testFillRestIfComplete(Cases.MISC, 0);
    }
 
    @Test
    public void testMisc1() {
-      testTrivialDeduction(Cases.MISC, 1);
+      testFillRestIfComplete(Cases.MISC, 1);
    }
 
    @Test
    public void testMisc2() {
-      testTrivialDeduction(Cases.MISC, 2);
+      testFillRestIfComplete(Cases.MISC, 2);
    }
 
    @Test
    public void testMisc3() {
-      testTrivialDeduction(Cases.MISC, 3);
+      testFillRestIfComplete(Cases.MISC, 3);
    }
 
    @Test
    public void testMisc4() {
-      testTrivialDeduction(Cases.MISC, 4);
+      testFillRestIfComplete(Cases.MISC, 4);
    }
 
    @Test
    public void testMisc5() {
-      testTrivialDeduction(Cases.MISC, 5);
+      testFillRestIfComplete(Cases.MISC, 5);
    }
 
    @Test
    public void testMisc6() {
-      testTrivialDeduction(Cases.MISC, 6);
+      testFillRestIfComplete(Cases.MISC, 6);
    }
 
 
 
    @Test
    public void testHardProblem0() {
-      testTrivialDeduction(Cases.HARD, 0);
+      testFillRestIfComplete(Cases.HARD, 0);
    }
 
    @Test
    public void testHardProblem1() {
-      testTrivialDeduction(Cases.HARD, 1);
+      testFillRestIfComplete(Cases.HARD, 1);
    }
 
    @Test
    public void testHardProblem2() {
-      testTrivialDeduction(Cases.HARD, 2);
+      testFillRestIfComplete(Cases.HARD, 2);
    }
 
    @Test
    public void testHardProblem3() {
-      testTrivialDeduction(Cases.HARD, 3);
+      testFillRestIfComplete(Cases.HARD, 3);
    }
 
    @Test
    public void testHardProblem4() {
-      testTrivialDeduction(Cases.HARD, 4);
+      testFillRestIfComplete(Cases.HARD, 4);
    }
 
    @Test
    public void testHardProblem5() {
-      testTrivialDeduction(Cases.HARD, 5);
+      testFillRestIfComplete(Cases.HARD, 5);
    }
 
    @Test
    public void testHardProblem6() {
-      testTrivialDeduction(Cases.HARD, 6);
+      testFillRestIfComplete(Cases.HARD, 6);
    }
 
-   private void testTrivialDeduction(String testType, int testCase) {
-      TestUtils.testSimpleDeduction(Deductor::startingDeduction, testType, testCase);
+   private void testFillRestIfComplete(String testType, int testCase) {
+      TestUtils.testSimpleDeduction(Deductor::fillRestIfCompletelyCrossed, testType, testCase);
    }
 }

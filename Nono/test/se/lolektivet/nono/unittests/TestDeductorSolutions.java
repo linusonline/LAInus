@@ -1,6 +1,7 @@
-package se.lolektivet.nono;
+package se.lolektivet.nono.unittests;
 
 import org.junit.Test;
+import se.lolektivet.nono.Solver;
 import se.lolektivet.nono.model.Problem;
 import se.lolektivet.nono.model.ProblemFactory;
 import se.lolektivet.nono.model.Solution;

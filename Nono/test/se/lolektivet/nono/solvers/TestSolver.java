@@ -1,6 +1,8 @@
-package se.lolektivet.nono;
+package se.lolektivet.nono.solvers;
 
 import org.junit.Test;
+import se.lolektivet.nono.Solver;
+import se.lolektivet.nono.cases.Puzzles;
 import se.lolektivet.nono.model.Solution;
 
 import static org.junit.Assert.assertEquals;
