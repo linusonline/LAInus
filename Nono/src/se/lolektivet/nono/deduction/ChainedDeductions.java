@@ -85,7 +85,7 @@ public class ChainedDeductions {
       return fitCluesToStreaksLeft(line, clues);
    }
 
-   public static List<Clue> fitCluesToStreaksAdvanced(List<SquareState> line, List<Clue> clues) {
+   public static List<Clue> mapCluesToStreaks(List<SquareState> line, List<Clue> clues) {
       List<Streak> streaks = listStreaks(line);
       Map<Streak, List<Integer>> possibleCluesForStreaks = new HashMap<>(streaks.size());
       for (Streak streak : streaks) {

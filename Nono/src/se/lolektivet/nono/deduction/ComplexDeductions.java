@@ -39,8 +39,8 @@ public class ComplexDeductions {
       return applyChainedDeductionAsSimple(ChainedDeductions::fitCluesToGapsAndStreaksBoth, line, clues);
    }
 
-   public static List<SquareState> fitCluesToStreaksAdvanced(List<SquareState> line, List<Integer> clues) {
-      return applyChainedDeductionAsSimple(ChainedDeductions::fitCluesToStreaksAdvanced, line, clues);
+   public static List<SquareState> mapCluesToStreaks(List<SquareState> line, List<Integer> clues) {
+      return applyChainedDeductionAsSimple(ChainedDeductions::mapCluesToStreaks, line, clues);
    }
 
    public static List<SquareState> fitToStreaksAndGapsAdvancedRepeated(List<SquareState> line, List<Integer> clues) {
@@ -48,7 +48,7 @@ public class ComplexDeductions {
 
       List<ChainedDeduction> chain = Arrays.asList(
             ChainedDeductions::fitCluesToStreaksBoth,
-            ChainedDeductions::fitCluesToStreaksAdvanced,
+            ChainedDeductions::mapCluesToStreaks,
             ChainedDeductions::fitCluesToGapsBoth);
       applyDeductionChainRepeated(chain, line, workingClues);
 

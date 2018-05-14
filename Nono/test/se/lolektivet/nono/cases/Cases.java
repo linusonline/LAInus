@@ -409,5 +409,9 @@ public class Cases {
       testCase(HARD, Arrays.asList(1, 1, 1, 3, 1, 6, 1, 1, 4),
             "        X            XX  X         ",
             "        X           XXX  X     X   ");
+
+      testCase(HARD, Arrays.asList(2, 5, 2, 1),
+            "   XX XX  X X             ",
+            "   XX XX  X.X             ");
    }
 }

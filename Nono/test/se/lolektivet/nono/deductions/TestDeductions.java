@@ -422,6 +422,12 @@ public class TestDeductions {
       testDeduction(deduction, Cases.HARD, 8);
    }
 
+   @ParameterizedTest
+   @MethodSource("deductionProvider")
+   public void testHardProblem9 (NamedDeduction deduction) {
+      testDeduction(deduction, Cases.HARD, 9);
+   }
+
 
 
    private void testDeduction(NamedDeduction deduction, String testType, int testCase) {
@@ -464,7 +470,7 @@ public class TestDeductions {
       deductions.add(new NamedDeduction(ComplexDeductions::fitCluesToGapsBoth, "fitCluesToGapsBoth"));
       deductions.add(new NamedDeduction(ComplexDeductions::fitCluesToStreaksBoth, "fitCluesToStreaksBoth"));
       deductions.add(new NamedDeduction(ComplexDeductions::fitCluesToGapsAndStreaksBoth, "fitCluesToGapsAndStreaksBoth"));
-      deductions.add(new NamedDeduction(ComplexDeductions::fitCluesToStreaksAdvanced, "fitCluesToStreaksAdvanced"));
+      deductions.add(new NamedDeduction(ComplexDeductions::mapCluesToStreaks, "mapCluesToStreaks"));
       deductions.add(new NamedDeduction(ComplexDeductions::fitToStreaksAndGapsAdvancedRepeated, "fitToStreaksAndGapsAdvancedRepeated"));
 
       return deductions.stream();
