@@ -369,7 +369,7 @@ public class Cases {
 
       clues = Arrays.asList(3, 2);
       problem  = Util.stringToLine(".   XX    .");
-      solution = Util.stringToLine("..  XX  X .");
+      solution = Util.stringToLine("... XX  X .");
       add(MISC, clues, problem, solution);
 
       // Hard
@@ -400,7 +400,7 @@ public class Cases {
 
       testCase(HARD, Arrays.asList(5, 5),
             "         XX  XX  X      ",
-            "...... XXXX  XXXXX......");
+            "...... XXXX .XXXXX......");
 
       testCase(HARD, Arrays.asList(2, 5, 4, 3, 1, 1, 3, 1, 2),
             "    XX                 X  X        ",
@@ -412,6 +412,6 @@ public class Cases {
 
       testCase(HARD, Arrays.asList(2, 5, 2, 1),
             "   XX XX  X X             ",
-            "   XX XX  X.X             ");
+            "  .XX XX XX.X .           ");
    }
 }

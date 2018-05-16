@@ -473,6 +473,7 @@ public class TestDeductions {
       deductions.add(new NamedDeduction(ComplexDeductions::fitCluesToGapsAndStreaksBoth, "fitCluesToGapsAndStreaksBoth"));
       deductions.add(new NamedDeduction(ComplexDeductions::mapCluesToStreaks, "mapCluesToStreaks"));
       deductions.add(new NamedDeduction(ComplexDeductions::fitToStreaksAndGapsAdvancedRepeated, "fitToStreaksAndGapsAdvancedRepeated"));
+      deductions.add(new NamedDeduction(SearchDeductions::search, "search"));
 
       return deductions.stream();
    }
