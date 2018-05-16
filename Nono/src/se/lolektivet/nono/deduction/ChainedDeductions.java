@@ -1,5 +1,6 @@
 package se.lolektivet.nono.deduction;
 
+import se.lolektivet.nono.Util;
 import se.lolektivet.nono.model.Clue;
 import se.lolektivet.nono.model.SquareState;
 
@@ -145,7 +146,7 @@ public class ChainedDeductions {
          earliestEnd++;
       }
       int push = earliestEnd - clues.get(clueNr).earliestEnd;
-      pushClueToRight(clues, clueNr, push, line.size());
+      Util.pushClueToRight(clues, clueNr, push, line.size());
    }
 
    private static void fitOneClueToGapRight(List<SquareState> line, List<Clue> clues, int clueNr) {
@@ -153,7 +154,7 @@ public class ChainedDeductions {
       int firstFit = findFirstFit(clues.get(clueNr).value, line, gapStart);
       int offset = firstFit - gapStart;
 
-      pushClueToRight(clues, clueNr, offset, line.size());
+      Util.pushClueToRight(clues, clueNr, offset, line.size());
    }
 
    private static void fitOneClueToGapLeft(List<SquareState> line, List<Clue> clues, int clueNr) {
@@ -161,7 +162,7 @@ public class ChainedDeductions {
       int firstFit = findFirstFitLeft(clues.get(clueNr - 1).value, line, gapStart);
       int offset = gapStart - firstFit;
 
-      pullClueToLeft(clues, clueNr - 1, offset);
+      Util.pullClueToLeft(clues, clueNr - 1, offset);
    }
 
    private static void fitOneClueToStreakLeft(List<SquareState> line, List<Clue> clues, int clueNr) {
@@ -170,7 +171,7 @@ public class ChainedDeductions {
          latestStart--;
       }
       int pull = clues.get(clueNr - 1).latestStart - latestStart;
-      pullClueToLeft(clues, clueNr - 1, pull);
+      Util.pullClueToLeft(clues, clueNr - 1, pull);
    }
 
    public static List<Clue> createClues(List<Integer> numberClues, int lineLength) {
@@ -189,9 +190,9 @@ public class ChainedDeductions {
    private static void fitClueToStreak(Streak streak, List<Clue> clues, int clueIndex, int lineLength) {
       Clue clue = clues.get(clueIndex);
       int offsetRight = Math.max(0, streak._startIndex + streak._length - clue.earliestEnd);
-      pushClueToRight(clues, clueIndex, offsetRight, lineLength);
+      Util.pushClueToRight(clues, clueIndex, offsetRight, lineLength);
       int offsetLeft = Math.max(0, clue.latestStart - streak._startIndex);
-      pullClueToLeft(clues, clueIndex, offsetLeft);
+      Util.pullClueToLeft(clues, clueIndex, offsetLeft);
    }
 
    public static boolean streakFitsClue(Streak streak, Clue clue) {
@@ -235,30 +236,6 @@ public class ChainedDeductions {
          }
       }
       return start;
-   }
-
-   private static void pushClueToRight(List<Clue> clues, int clueIndex, int push, int lineLength) {
-      clues.get(clueIndex).pushEarliestToRight(push);
-      if (clueIndex + 1 < clues.size()) {
-         int separation = clues.get(clueIndex + 1).earliestStart - clues.get(clueIndex).earliestEnd;
-         if (separation < 1) {
-            pushClueToRight(clues, clueIndex + 1, 1 - separation, lineLength);
-         }
-      } else if (clues.get(clueIndex).earliestEnd > lineLength) {
-         throw new ContradictionException();
-      }
-   }
-
-   private static void pullClueToLeft(List<Clue> clues, int clueIndex, int pull) {
-      clues.get(clueIndex).pullLatestToLeft(pull);
-      if (clueIndex > 0) {
-         int separation = clues.get(clueIndex).latestStart - clues.get(clueIndex - 1).latestEnd;
-         if (separation < 1) {
-            pullClueToLeft(clues, clueIndex - 1, 1 - separation);
-         }
-      } else if (clues.get(clueIndex).latestStart < 0) {
-         throw new ContradictionException();
-      }
    }
 
    public static List<Streak> listStreaks(List<SquareState> line) {

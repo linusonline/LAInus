@@ -2,10 +2,7 @@ package se.lolektivet.ai.search;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class StateSearch {
@@ -36,29 +33,47 @@ public class StateSearch {
    }
 
    @NotNull
-   public StateSearchProblem.Solution search() {
-      return search(false);
+   public StateSearchProblem.Solution findGoal() {
+      return findGoal(false);
    }
 
-   public StateSearchProblem.Solution search(boolean debug) {
+   public StateSearchProblem.Solution findGoal(boolean debug) {
+      return internalFindGoals(debug, false).stream()
+            .findFirst()
+            .orElse(new StateSearchProblem.Solution());
+   }
+
+   public Set<StateSearchProblem.Solution> findAllGoals() {
+      return findAllGoals(false);
+   }
+
+   public Set<StateSearchProblem.Solution> findAllGoals(boolean debug) {
+      return internalFindGoals(debug, true);
+   }
+
+   private Set<StateSearchProblem.Solution> internalFindGoals(boolean debug, boolean findAll) {
+      Set<StateSearchProblem.Solution> allSolutions = new HashSet<>();
       fringe.add(rootNode());
       while (!fringe.isEmpty()){
          Node nextNode = fringe.remove();
          if (problem.isGoal(nextNode.state)) {
-            return solutionFromState(nextNode);
-         }
-         fringe.addAll(expandNode(nextNode));
-         if (++processedNodes > 1000000 && debug) {
-            processedNodes = 0;
-            System.out.println("Latest depth: " + nextNode.depth);
-            System.out.println("Fringe size: " + fringe.size());
+            allSolutions.add(solutionFromState(nextNode));
+            if (!findAll) {
+               return allSolutions;
+            }
+         } else {
+            fringe.addAll(expandNode(nextNode));
+            if (++processedNodes > 1000000 && debug) {
+               processedNodes = 0;
+               System.out.println("Latest depth: " + nextNode.depth);
+               System.out.println("Fringe size: " + fringe.size());
+            }
          }
       }
-      return new StateSearchProblem.Solution();
+      return allSolutions;
    }
 
    private List<Node> expandNode(Node node) {
-      Map<? extends StateSearchProblem.Action, ? extends StateSearchProblem.State> successors = problem.successorFunction(node.state);
       return problem.successorFunction(node.state).entrySet().stream()
             .map((entry) -> nodeFromState(entry.getValue(), node, entry.getKey()))
             .collect(Collectors.toList());

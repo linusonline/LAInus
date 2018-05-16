@@ -19,7 +19,7 @@ public class ProblemRunner {
          StateSearch search = new StateSearch(problem, Collections.asLifoQueue(new ArrayDeque<>()));
          System.out.println("Searching...");
          long before = System.currentTimeMillis();
-         StateSearchProblem.Solution solution = search.search();
+         StateSearchProblem.Solution solution = search.findGoal();
          long time = System.currentTimeMillis() - before;
          if (solution.isFailure) {
             System.out.println("Failed to find solution in " + time + " ms.");

@@ -101,7 +101,7 @@ public class Deductions {
       for (int i = 0; i <= existing.size(); i++) {
          if (i == existing.size() || existing.get(i).isCrossed()) {
             if (!skippingGap && unknownStreak > 0 && unknownStreak < shortest) {
-               Util.setAll(existing, answer, i - unknownStreak, i, SquareState.STRIKE);
+               Util.setAll(answer, i - unknownStreak, i, SquareState.STRIKE);
             }
             skippingGap = false;
             unknownStreak = 0;

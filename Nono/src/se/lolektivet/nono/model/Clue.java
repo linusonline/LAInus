@@ -24,6 +24,10 @@ public class Clue {
       this.latestEnd = latestStart + value;
    }
 
+   public boolean isFixed() {
+      return earliestStart == latestStart;
+   }
+
    public void setEarliestStart(int earliestStart) {
       if (earliestStart < this.earliestStart ||
             this.latestStart < earliestStart) {

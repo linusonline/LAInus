@@ -3,7 +3,6 @@ package se.lolektivet.ai.examples;
 import org.jetbrains.annotations.NotNull;
 import se.lolektivet.ai.search.ProblemRunner;
 import se.lolektivet.ai.search.ProblemSequence;
-import se.lolektivet.ai.search.StateSearch;
 import se.lolektivet.ai.search.StateSearchProblem;
 
 import java.util.*;
@@ -78,13 +77,13 @@ public class NQueens implements StateSearchProblem {
    @NotNull
    @Override
    public StateSearchProblem.Cost getZeroCost() {
-      return new Cost(0);
+      return new IntegerCost(0);
    }
 
    @NotNull
    @Override
    public StateSearchProblem.Cost getStepCost(StateSearchProblem.State fromState, StateSearchProblem.Action action, StateSearchProblem.State toState) {
-      return new Cost(1);
+      return new IntegerCost(1);
    }
 
    @NotNull
@@ -134,31 +133,6 @@ public class NQueens implements StateSearchProblem {
 
       public Action(int colPos) {
          this.colPos = colPos;
-      }
-   }
-
-   public static class Cost implements StateSearchProblem.Cost {
-
-      private final int total;
-
-      public Cost(int total) {
-         this.total = total;
-      }
-
-      @Override
-      public int compareTo(@NotNull StateSearchProblem.Cost other) {
-         return Integer.compare(total, castOrDie(other).total);
-      }
-
-      @NotNull
-      @Override
-      public StateSearchProblem.Cost add(@NotNull StateSearchProblem.Cost other) {
-         return new Cost(total + castOrDie(other).total);
-      }
-
-      @NotNull
-      private NQueens.Cost castOrDie(@NotNull StateSearchProblem.Cost cost) {
-         return (NQueens.Cost) cost;
       }
    }
 

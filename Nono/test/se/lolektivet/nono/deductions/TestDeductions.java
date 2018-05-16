@@ -6,6 +6,7 @@ import se.lolektivet.nono.cases.Cases;
 import se.lolektivet.nono.deduction.ComplexDeductions;
 import se.lolektivet.nono.deduction.Deduction;
 import se.lolektivet.nono.deduction.Deductions;
+import se.lolektivet.nono.deduction.SearchDeductions;
 import se.lolektivet.nono.model.SquareState;
 
 import java.util.ArrayList;
