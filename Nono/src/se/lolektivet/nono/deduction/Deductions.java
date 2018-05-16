@@ -1,6 +1,6 @@
 package se.lolektivet.nono.deduction;
 
-import se.lolektivet.nono.model.Clue;
+import se.lolektivet.nono.Util;
 import se.lolektivet.nono.model.Solution;
 import se.lolektivet.nono.model.SquareState;
 
@@ -101,7 +101,7 @@ public class Deductions {
       for (int i = 0; i <= existing.size(); i++) {
          if (i == existing.size() || existing.get(i).isCrossed()) {
             if (!skippingGap && unknownStreak > 0 && unknownStreak < shortest) {
-               setAllUnknowns(existing, answer, i - unknownStreak, i, SquareState.STRIKE);
+               Util.setAll(existing, answer, i - unknownStreak, i, SquareState.STRIKE);
             }
             skippingGap = false;
             unknownStreak = 0;
@@ -141,20 +141,6 @@ public class Deductions {
          after = Solution.knownSquaresInLine(current);
          current = answer;
       } while (before < after);
-      return answer;
-   }
-
-   public static Answer cluesToAnswer(List<Clue> clues, List<SquareState> existing) {
-      Answer answer = new Answer(existing);
-      for (Clue clue : clues) {
-         setAllUnknowns(existing, answer, clue.latestStart, clue.earliestEnd, SquareState.FILLED);
-      }
-      int crossStart = 0;
-      for (Clue clue : clues) {
-         setAllUnknowns(existing, answer, crossStart, clue.earliestStart, SquareState.STRIKE);
-         crossStart = clue.latestEnd;
-      }
-      setAllUnknowns(existing, answer, crossStart, existing.size(), SquareState.STRIKE);
       return answer;
    }
 

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.stream.Collectors;
 
 public class StateSearch {
    public static class Node {
@@ -57,12 +58,10 @@ public class StateSearch {
    }
 
    private List<Node> expandNode(Node node) {
-      List<Node> newNodes = new ArrayList<>();
       Map<? extends StateSearchProblem.Action, ? extends StateSearchProblem.State> successors = problem.successorFunction(node.state);
-      for (Map.Entry<? extends StateSearchProblem.Action, ? extends StateSearchProblem.State> entry : successors.entrySet()) {
-         newNodes.add(nodeFromState(entry.getValue(), node, entry.getKey()));
-      }
-      return newNodes;
+      return problem.successorFunction(node.state).entrySet().stream()
+            .map((entry) -> nodeFromState(entry.getValue(), node, entry.getKey()))
+            .collect(Collectors.toList());
    }
 
    private StateSearchProblem.Solution solutionFromState(Node node) {

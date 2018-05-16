@@ -149,7 +149,7 @@ public class TestChainedDeductions {
    public void testCopyClues() {
       Clue clue = new Clue(1, 0, 1);
       List<Clue> clues = Collections.singletonList(clue);
-      List<Clue> copy = ComplexDeductions.copyClues(clues);
+      List<Clue> copy = Util.copyClues(clues);
       clue.earliestStart = 1;
       assertEquals(1, clues.get(0).earliestStart);
       assertEquals(0, copy.get(0).earliestStart);

@@ -1,5 +1,7 @@
 package se.lolektivet.nono.model;
 
+import se.lolektivet.nono.deduction.ContradictionException;
+
 import java.util.Objects;
 
 public class Clue {
@@ -20,6 +22,40 @@ public class Clue {
       this.latestStart = latestStart;
       this.earliestEnd = earliestStart + value;
       this.latestEnd = latestStart + value;
+   }
+
+   public void setEarliestStart(int earliestStart) {
+      if (earliestStart < this.earliestStart ||
+            this.latestStart < earliestStart) {
+         throw new ContradictionException();
+      }
+      this.earliestStart = earliestStart;
+      this.earliestEnd = earliestStart + this.value;
+   }
+
+   public void setLatestStart(int latestStart) {
+      if (latestStart < this.earliestStart ||
+            this.latestStart < latestStart) {
+         throw new ContradictionException();
+      }
+      this.latestStart = latestStart;
+      this.latestEnd = latestStart + this.value;
+   }
+
+   public void pullLatestToLeft(int pull) {
+      if (this.latestStart - pull < this.earliestStart) {
+         throw new ContradictionException();
+      }
+      this.latestStart -= pull;
+      this.latestEnd -= pull;
+   }
+
+   public void pushEarliestToRight(int push) {
+      if (this.earliestStart + push > this.latestStart) {
+         throw new ContradictionException();
+      }
+      this.earliestStart += push;
+      this.earliestEnd += push;
    }
 
    @Override

@@ -1,5 +1,6 @@
 package se.lolektivet.nono.deduction;
 
+import se.lolektivet.nono.Util;
 import se.lolektivet.nono.model.Clue;
 import se.lolektivet.nono.model.SquareState;
 
@@ -52,7 +53,7 @@ public class ComplexDeductions {
             ChainedDeductions::fitCluesToGapsBoth);
       applyDeductionChainRepeated(chain, line, workingClues);
 
-      return Deductions.cluesToAnswer(workingClues, line).get();
+      return Util.cluesToAnswer(workingClues, line).get();
    }
 
 
@@ -71,7 +72,7 @@ public class ComplexDeductions {
 
       applyDeductionChain(chain, line, workingClues);
 
-      return Deductions.cluesToAnswer(workingClues, line).get();
+      return Util.cluesToAnswer(workingClues, line).get();
    }
 
    public static List<Clue> applyDeductionChain(List<ChainedDeduction> chain, List<SquareState> line, List<Clue> clues) {
@@ -84,7 +85,7 @@ public class ComplexDeductions {
    public static List<Clue> applyDeductionChainRepeated(List<ChainedDeduction> chain, List<SquareState> line, List<Clue> clues) {
       List<Clue> oldClues;
       do {
-         oldClues = copyClues(clues);
+         oldClues = Util.copyClues(clues);
 
          for (ChainedDeduction chainedDeduction : chain) {
             chainedDeduction.apply(line, clues);
@@ -141,10 +142,6 @@ public class ComplexDeductions {
 
    public static Clue getReverseClue(Clue clue, int lineLength) {
       return new Clue(clue.value, lineLength - clue.latestEnd, lineLength - clue.earliestEnd);
-   }
-
-   public static List<Clue> copyClues(List<Clue> clues) {
-      return clues.stream().map(Clue::new).collect(Collectors.toList());
    }
 
 }

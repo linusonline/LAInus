@@ -237,17 +237,8 @@ public class ChainedDeductions {
       return start;
    }
 
-   @Deprecated
-   static void offsetCluesToRight(List<Clue> clues, int firstClueFromLeft, int offset) {
-      for (int i = firstClueFromLeft; i < clues.size(); i++) {
-         clues.get(i).earliestStart += offset;
-         clues.get(i).earliestEnd += offset;
-      }
-   }
-
-   public static void pushClueToRight(List<Clue> clues, int clueIndex, int push, int lineLength) {
-      clues.get(clueIndex).earliestStart += push;
-      clues.get(clueIndex).earliestEnd += push;
+   private static void pushClueToRight(List<Clue> clues, int clueIndex, int push, int lineLength) {
+      clues.get(clueIndex).pushEarliestToRight(push);
       if (clueIndex + 1 < clues.size()) {
          int separation = clues.get(clueIndex + 1).earliestStart - clues.get(clueIndex).earliestEnd;
          if (separation < 1) {
@@ -259,8 +250,7 @@ public class ChainedDeductions {
    }
 
    private static void pullClueToLeft(List<Clue> clues, int clueIndex, int pull) {
-      clues.get(clueIndex).latestStart -= pull;
-      clues.get(clueIndex).latestEnd -= pull;
+      clues.get(clueIndex).pullLatestToLeft(pull);
       if (clueIndex > 0) {
          int separation = clues.get(clueIndex).latestStart - clues.get(clueIndex - 1).latestEnd;
          if (separation < 1) {
@@ -269,14 +259,6 @@ public class ChainedDeductions {
       } else if (clues.get(clueIndex).latestStart < 0) {
          throw new ContradictionException();
       }
-   }
-
-   private static void setLatestStartForClue(Clue clue, int latestStart) {
-      if (latestStart > clue.latestStart) {
-         throw new ContradictionException();
-      }
-      clue.latestStart = latestStart;
-      clue.latestEnd = latestStart + clue.value;
    }
 
    public static List<Streak> listStreaks(List<SquareState> line) {
