@@ -67,7 +67,8 @@ public class RowSearchProblem implements StateSearchProblem {
       for (Action action : solution.actionSequence) {
          RowAction rowAction = ((RowAction)action);
          Clue clue = newClues.get(rowAction.indexOfNextClue);
-         clue.setEarliestStart(rowAction.positionOfNextClue);
+         int push = rowAction.positionOfNextClue - clue.earliestStart;
+         Util.pushClueToRight(newClues, rowAction.indexOfNextClue, push, line.size());
          clue.setLatestStart(rowAction.positionOfNextClue);
       }
       return Util.cluesToAnswer(newClues, line).get();
